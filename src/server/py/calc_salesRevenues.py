@@ -13,6 +13,7 @@ def getDataframe():
      df = pd.read_sql_query("select * from sales_data_leisure_view", conn);
      return df;
 
+
 def calculateSalesRevenues():
      # fetch all records
      df = getDataframe();
@@ -31,6 +32,6 @@ def calculateSalesRevenues():
        'TotalTransactions': numberOfTransactions
      });
 
-     # print(totalRevenues);
+     print(totalRevenues);
 
 calculateSalesRevenues();

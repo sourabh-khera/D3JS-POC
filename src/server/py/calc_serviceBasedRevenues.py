@@ -13,31 +13,42 @@ def getDataframe():
      df = pd.read_sql_query('select * from sales_data_leisure_view', conn);
      return df;
 
+def calculateAverageGR(x, df):
+    return df.groupby('sales_data_leisure_view.service')['sales_data_leisure_view.txn_amount'].mean()[x];
+
+def calculateGrossRevenue(x, df):
+    return df.groupby('sales_data_leisure_view.service')['sales_data_leisure_view.txn_amount'].sum()[x];
+
+def calculateNetRevenue(x, df):
+     df['dif_sum'] = df['sales_data_leisure_view.txn_amount'] - df['sales_data_leisure_view.vendor_amount'];
+     return df.groupby('sales_data_leisure_view.service')['dif_sum'].sum()[x];
+
+def calculateTotalTransactions(x, df):
+    return df.groupby('sales_data_leisure_view.service')['sales_data_leisure_view.transaction_date'].count()[x];
+
 def calculateServiceBasedRevenues():
      # fetch all records
      df = getDataframe();
 
      # Calculate gross revenue and average gross revenue from df
-     flightsGR = df.groupby('sales_data_leisure_view.service')['sales_data_leisure_view.txn_amount'].sum()['FLIGHTS'];
-     hotelsGR = df.groupby('sales_data_leisure_view.service')['sales_data_leisure_view.txn_amount'].sum()['HOTELS'];
-     othersGR = df.groupby('sales_data_leisure_view.service')['sales_data_leisure_view.txn_amount'].sum()['OTHERS'];
-
+     flightsGR = calculateGrossRevenue('FLIGHTS', df);
+     hotelsGR = calculateGrossRevenue('HOTELS', df);
+     othersGR = calculateGrossRevenue('OTHERS', df);
 
      # Calculate average gross revenue from df
-     flightsAverageGR = df.groupby('sales_data_leisure_view.service')['sales_data_leisure_view.txn_amount'].mean()['FLIGHTS'];
-     hotelsAverageGR = df.groupby('sales_data_leisure_view.service')['sales_data_leisure_view.txn_amount'].mean()['HOTELS'];
-     othersAverageGR = df.groupby('sales_data_leisure_view.service')['sales_data_leisure_view.txn_amount'].mean()['OTHERS'];
+     flightsAverageGR = calculateAverageGR('FLIGHTS', df);
+     hotelsAverageGR = calculateAverageGR('HOTELS', df);
+     othersAverageGR = calculateAverageGR('OTHERS', df);
 
      # Calculate net revenue from df
-     df['dif_sum'] = df['sales_data_leisure_view.txn_amount'] - df['sales_data_leisure_view.vendor_amount'];
-     flightsNetRevenue = df.groupby('sales_data_leisure_view.service')['dif_sum'].sum()['FLIGHTS'];
-     hotelsNetRevenue = df.groupby('sales_data_leisure_view.service')['dif_sum'].sum()['HOTELS'];
-     othersNetRevenue = df.groupby('sales_data_leisure_view.service')['dif_sum'].sum()['OTHERS'];
+     flightsNetRevenue = calculateNetRevenue('FLIGHTS', df);
+     hotelsNetRevenue = calculateNetRevenue('HOTELS', df);
+     othersNetRevenue = calculateNetRevenue('OTHERS', df);
 
      # Calculate total number of transactions
-     numberOfFlightsTrans = df.groupby('sales_data_leisure_view.service')['sales_data_leisure_view.transaction_date'].count()['FLIGHTS'];
-     numberOfHotelsTrans = df.groupby('sales_data_leisure_view.service')['sales_data_leisure_view.transaction_date'].count()['HOTELS'];
-     numberOfOthersTrans = df.groupby('sales_data_leisure_view.service')['sales_data_leisure_view.transaction_date'].count()['OTHERS'];
+     numberOfFlightsTrans = calculateTotalTransactions('FLIGHTS', df);
+     numberOfHotelsTrans = calculateTotalTransactions('HOTELS', df);
+     numberOfOthersTrans = calculateTotalTransactions('OTHERS', df);
 
      serviceBasedRevenues = dict({
        'FLights': {
