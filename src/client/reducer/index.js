@@ -1,3 +1,6 @@
 import { combineReducers } from 'redux';
-import { transactions } from './transactions';
-export const reducers = combineReducers({ transactions });
+import revenues from './revenues';
+
+const reducers = combineReducers({ revenues });
+
+export default reducers;

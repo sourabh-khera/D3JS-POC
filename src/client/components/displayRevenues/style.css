@@ -1,12 +1,20 @@
 .totalRevenue {
-  'font-size': '54px';
+   font-size: 38px;
    margin: 0;
+  -webkit-font-smoothing: antialiased;
+   color: #4676ae;
+   font-weight: 400;
+   letter-spacing: -2.1px;
 }
 
 .title {
-  margin: '0 0 10px';
+  margin: 0 0 10px;
+  color: #99816b;
 }
 
 .titleRevenueContainer {
-  flex:1;
+  flex: 1;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
 }

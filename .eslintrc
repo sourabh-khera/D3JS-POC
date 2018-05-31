@@ -1,34 +1,30 @@
-# {
-# "parser": "babel-eslint",
-# "extends": "airbnb",
-# "env": {
-# "browser": true,
-# "node": true,
-# "mocha": true
-# },
-# "parserOptions": {
-# "ecmaVersion": 6,
-# "sourceType": "module",
-# "ecmaFeatures": {
-# "jsx": true,
-# "experimentalObjectRestSpread": true
-# }
-# },
-# "rules": {
-# "strict": 0,
-# "indent": ["warn", 2],
-# "max-len": ["warn", 120],
-# "no-underscore-dangle": "off",
-# "arrow-parens": [2, "as-needed"],
-# "react/forbid-prop-types": 0,
-# "react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx"] }]
-# },
-# "plugins": [
-# "jsx-a11y",
-# "react"
-# ],
-# "globals": {
-# "__DEVSERVER__": true,
-# "__DEVCLIENT__": true
-# }
-# }
+{
+  "parser": "babel-eslint",
+  "extends": "airbnb",
+  "env": {
+    "browser": true,
+    "node": true,
+    "mocha": true
+  },
+  "parserOptions": {
+    "ecmaVersion": 6,
+    "sourceType": "module",
+    "ecmaFeatures": {
+      "jsx": true,
+      "experimentalObjectRestSpread": true
+    }
+  },
+  "rules": {
+    "strict": 0,
+    "indent": ["warn", 2],
+    "max-len": ["warn", 120],
+    "no-underscore-dangle": "off",
+    "arrow-parens": [2, "as-needed"],
+    "react/forbid-prop-types": 0,
+    "react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx"] }]
+  },
+  "plugins": [
+    "jsx-a11y",
+    "react"
+  ]
+}

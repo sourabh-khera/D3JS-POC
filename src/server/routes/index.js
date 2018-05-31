@@ -1,56 +1,30 @@
-const PythonShell = require('python-shell');
+const cors = require('cors');
+const revenueController = require('../controller/revenues');
 
 
-const getSalesRevenues = () => {
-    return new Promise((resolve, reject) => {
-        PythonShell.run('./src/server/py/calc_salesRevenues.py', (err, data) => {
-            if (err) {
-                reject(err);
-            }
-            resolve(data);
-        });
-    });
-};
+module.exports = app => {
+  app.use(cors());
+  app.get('/calculateTotalSalesRevenues', (req, res) => {
+    revenueController.getSalesRevenues()
+      .then(data => res.send(data))
+      .catch(err => console.log(err))
+  });
 
-const getServiceBasedRevenues = () => {
-    return new Promise((resolve, reject) => {
-        PythonShell.run('./src/server/py/calc_serviceBasedRevenues.py', (err, data) => {
-            if (err) {
-                reject(err);
-            }
-            resolve(data);
-        });
-    });
-};
+  app.get('/calculateServiceBasedRevenues', (req, res) => {
+    revenueController.getServiceBasedRevenues()
+      .then(data => res.send(data))
+      .catch(err => console.log(err))
+  });
 
-const getChannelBasedRevenues = () => {
-    return new Promise((resolve, reject) => {
-        PythonShell.run('./src/server/py/calc_channelBasedRevenues.py', (err, data) => {
-            if (err) {
-                reject(err);
-            }
-            resolve(data);
-        });
-    });
-};
+  app.get('/calculateChannelBasedRevenues', (req, res) => {
+    revenueController.getChannelBasedRevenues()
+      .then(data => res.send(data))
+      .catch(err => console.log(err))
+  });
 
-module.exports = (app) => {
-
-    app.get('/calculateSalesRevenues', (req, res) => {
-        getSalesRevenues()
-            .then(data => console.log("group-----",data))
-            .catch(err => console.log(err))
-    });
-
-    app.get('/calculateServiceBasedRevenues', (req, res) => {
-        getServiceBasedRevenues()
-            .then(data => console.log("group-----",data))
-            .catch(err => console.log(err))
-    });
-
-    app.get('/calculateChannelBasedRevenues', (req, res) => {
-        getChannelBasedRevenues()
-            .then(data => console.log("group-----",data))
-            .catch(err => console.log(err))
-    });
+  app.get('/calculateCityBasedRevenues', (req, res) => {
+    revenueController.getCityBasedRevenues()
+      .then(data => res.send(data))
+      .catch(err => console.log(err))
+  });
 };

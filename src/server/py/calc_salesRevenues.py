@@ -1,6 +1,7 @@
 from pyhive import hive
 import pandas as pd
 import numpy as np
+import json
 import os
 
 def createConnection():
@@ -17,6 +18,7 @@ def getDataframe():
 def calculateSalesRevenues():
      # fetch all records
      df = getDataframe();
+
      # Calculate gross revenue and average gross revenue from df
      grossRevenue = df['sales_data_leisure_view.txn_amount'].sum();
      averageGrossRevenue = df['sales_data_leisure_view.txn_amount'].mean();
@@ -26,12 +28,12 @@ def calculateSalesRevenues():
      numberOfTransactions = df.shape[0];
 
      totalRevenues = dict({
-       'GrossRevenue': grossRevenue,
-       'NetRevenue': netRevenue,
-       'AverageGrossRevenue': averageGrossRevenue,
-       'TotalTransactions': numberOfTransactions
+       'Gross Revenue': grossRevenue,
+       'Net Revenue': netRevenue,
+       'Average Gross Revenue': averageGrossRevenue,
+       'Total Transactions': numberOfTransactions
      });
 
-     print(totalRevenues);
+     print(json.dumps(totalRevenues));
 
 calculateSalesRevenues();

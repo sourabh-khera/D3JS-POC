@@ -1,6 +1,7 @@
 from pyhive import hive
 import pandas as pd
 import numpy as np
+import json
 import os
 
 def createConnection():
@@ -31,65 +32,60 @@ def calculateChannelBasedRevenues():
      df = getDataframe();
 
      # Calculate gross revenue from df
-     airportGR = calculateGrossRevenue('AIRPORT', df);
-     branchGR = calculateGrossRevenue('BRANCH', df);
-     callcenterGR = calculateGrossRevenue('CALL CENTER', df);
-     franchiseGR = calculateGrossRevenue('FRANCHISE', df);
-     digitalGR = calculateGrossRevenue('DIGITAL', df);
-
+     channelGrossRevenue = {}
+     channels = df['sales_data_leisure_view.channel'].unique();
+     for i in channels:
+        channelGrossRevenue[i] = calculateGrossRevenue(i, df);
      # Calculate average gross revenue from df
-     airportAverageGR = calculateAverageGR('AIRPORT', df);
-     branchAverageGR = calculateAverageGR('BRANCH', df);
-     callcenterAverageGR = calculateAverageGR('CALL CENTER', df);
-     franchiseAverageGR = calculateAverageGR('FRANCHISE', df);
-     digitalAverageGR = calculateAverageGR('DIGITAL', df);
+     channelAverageGR = {}
+     channels = df['sales_data_leisure_view.channel'].unique();
+     for i in channels:
+        channelAverageGR[i] = calculateAverageGR(i, df);
 
      # Calculate net revenue from df
-     airportNetRevenue = calculateNetRevenue('AIRPORT', df);
-     branchNetRevenue = calculateNetRevenue('BRANCH', df);
-     callcenterRevenue = calculateNetRevenue('CALL CENTER', df);
-     franchiseNetRevenue = calculateNetRevenue('FRANCHISE', df);
-     digitalNetRevenue = calculateNetRevenue('DIGITAL', df);
+     channelNetRevenue = {}
+     channels = df['sales_data_leisure_view.channel'].unique();
+     for i in channels:
+        channelNetRevenue[i] = calculateNetRevenue(i, df);
 
      # Calculate total number of transactions
-     numberOfAirportTrans = calculateTotalTransactions('AIRPORT', df);
-     numberOfBranchTrans = calculateTotalTransactions('BRANCH', df);
-     numberOfCallcenterTrans = calculateTotalTransactions('CALL CENTER', df);
-     numberOfFranchiseTrans = calculateTotalTransactions('FRANCHISE', df);
-     numberOfDigitalTrans = calculateTotalTransactions('DIGITAL', df);
+     channelTotalTransactions = {}
+     channels = df['sales_data_leisure_view.channel'].unique();
+     for i in channels:
+        channelTotalTransactions[i] = calculateTotalTransactions(i, df);
 
      channelBasedRevenues = dict({
        'Airport': {
-         'GrossRevenue': airportGR,
-         'AverageGrossRevenue': airportAverageGR,
-         'Transactions': numberOfAirportTrans,
-         'NetRevenue': airportNetRevenue
+         'GrossRevenue': channelGrossRevenue['AIRPORT'],
+         'AverageGrossRevenue': channelAverageGR['AIRPORT'],
+         'Transactions': channelTotalTransactions['AIRPORT'],
+         'NetRevenue': channelNetRevenue['AIRPORT'],
         },
        'Branch': {
-         'GrossRevenue': branchGR,
-         'AverageGrossRevenue': branchAverageGR,
-         'Transactions': numberOfBranchTrans,
-         'NetRevenue': branchNetRevenue
+         'GrossRevenue': channelGrossRevenue['BRANCH'],
+         'AverageGrossRevenue': channelAverageGR['BRANCH'],
+         'Transactions': channelTotalTransactions['BRANCH'],
+         'NetRevenue': channelNetRevenue['BRANCH'],
         },
        'CallCenter': {
-         'GrossRevenue': callcenterGR,
-         'AverageGrossRevenue': callcenterAverageGR,
-         'Transactions': numberOfCallcenterTrans,
-         'NetRevenue': callcenterRevenue
+         'GrossRevenue': channelGrossRevenue['CALL CENTER'],
+         'AverageGrossRevenue': channelAverageGR['CALL CENTER'],
+         'Transactions': channelTotalTransactions['CALL CENTER'],
+         'NetRevenue': channelNetRevenue['CALL CENTER'],
         },
        'Digital': {
-          'GrossRevenue': digitalGR,
-          'AverageGrossRevenue': digitalAverageGR,
-          'Transactions': numberOfDigitalTrans,
-          'NetRevenue': franchiseNetRevenue
+          'GrossRevenue': channelGrossRevenue['DIGITAL'],
+          'AverageGrossRevenue': channelAverageGR['DIGITAL'],
+          'Transactions': channelTotalTransactions['DIGITAL'],
+          'NetRevenue': channelNetRevenue['DIGITAL'],
          },
         'Franchise': {
-          'GrossRevenue': franchiseGR,
-          'AverageGrossRevenue': franchiseAverageGR,
-          'Transactions': numberOfFranchiseTrans,
-          'NetRevenue': digitalNetRevenue
+          'GrossRevenue': channelGrossRevenue['FRANCHISE'],
+          'AverageGrossRevenue': channelAverageGR['FRANCHISE'],
+          'Transactions': channelTotalTransactions['FRANCHISE'],
+          'NetRevenue': channelNetRevenue['FRANCHISE'],
          },
      });
-     print(channelBasedRevenues);
+     print(json.dumps(channelBasedRevenues));
 
 calculateChannelBasedRevenues();

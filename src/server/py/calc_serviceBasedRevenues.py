@@ -1,6 +1,7 @@
 from pyhive import hive
 import pandas as pd
 import numpy as np
+import json
 import os
 
 def createConnection():
@@ -31,45 +32,48 @@ def calculateServiceBasedRevenues():
      df = getDataframe();
 
      # Calculate gross revenue and average gross revenue from df
-     flightsGR = calculateGrossRevenue('FLIGHTS', df);
-     hotelsGR = calculateGrossRevenue('HOTELS', df);
-     othersGR = calculateGrossRevenue('OTHERS', df);
+     serviceGrossRevenue = {}
+     services = df['sales_data_leisure_view.service'].unique();
+     for i in services:
+        serviceGrossRevenue[i] = calculateGrossRevenue(i, df);
 
      # Calculate average gross revenue from df
-     flightsAverageGR = calculateAverageGR('FLIGHTS', df);
-     hotelsAverageGR = calculateAverageGR('HOTELS', df);
-     othersAverageGR = calculateAverageGR('OTHERS', df);
+     serviceAverageGR = {}
+     services = df['sales_data_leisure_view.service'].unique();
+     for i in services:
+        serviceAverageGR[i] = calculateAverageGR(i, df);
 
      # Calculate net revenue from df
-     flightsNetRevenue = calculateNetRevenue('FLIGHTS', df);
-     hotelsNetRevenue = calculateNetRevenue('HOTELS', df);
-     othersNetRevenue = calculateNetRevenue('OTHERS', df);
+     serviceNetRevenue = {}
+     services = df['sales_data_leisure_view.service'].unique();
+     for i in services:
+        serviceNetRevenue[i] = calculateNetRevenue(i, df);
 
      # Calculate total number of transactions
-     numberOfFlightsTrans = calculateTotalTransactions('FLIGHTS', df);
-     numberOfHotelsTrans = calculateTotalTransactions('HOTELS', df);
-     numberOfOthersTrans = calculateTotalTransactions('OTHERS', df);
-
+     serviceTotalTransactions = {}
+     services = df['sales_data_leisure_view.service'].unique();
+     for i in services:
+        serviceTotalTransactions[i] = calculateTotalTransactions(i, df);
      serviceBasedRevenues = dict({
        'FLights': {
-         'GrossRevenue': flightsGR,
-         'AverageGrossRevenue': flightsAverageGR,
-         'Transactions': numberOfFlightsTrans,
-         'NetRevenue': flightsNetRevenue
+          'GrossRevenue': serviceGrossRevenue['FLIGHTS'],
+          'AverageGrossRevenue': serviceAverageGR['FLIGHTS'],
+          'Transactions': serviceTotalTransactions['FLIGHTS'],
+          'NetRevenue': serviceNetRevenue['FLIGHTS'],
         },
        'Hotels': {
-         'GrossRevenue': hotelsGR,
-         'AverageGrossRevenue': hotelsAverageGR,
-         'Transactions': numberOfHotelsTrans,
-         'NetRevenue': hotelsNetRevenue
+          'GrossRevenue': serviceGrossRevenue['HOTELS'],
+          'AverageGrossRevenue': serviceAverageGR['HOTELS'],
+          'Transactions': serviceTotalTransactions['HOTELS'],
+          'NetRevenue': serviceNetRevenue['HOTELS'],
         },
        'Others': {
-         'GrossRevenue': othersGR,
-         'AverageGrossRevenue': othersAverageGR,
-         'Transactions': numberOfOthersTrans,
-         'NetRevenue': othersNetRevenue
+          'GrossRevenue': serviceGrossRevenue['OTHERS'],
+          'AverageGrossRevenue': serviceAverageGR['OTHERS'],
+          'Transactions': serviceTotalTransactions['OTHERS'],
+          'NetRevenue': serviceNetRevenue['OTHERS'],
         },
      });
-     print(serviceBasedRevenues);
+     print(json.dumps(erviceBasedRevenues));
 
 calculateServiceBasedRevenues();

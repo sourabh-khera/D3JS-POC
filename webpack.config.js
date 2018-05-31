@@ -1,20 +1,26 @@
-const path = require("path");
+const path = require('path');
 
 module.exports = {
-  mode:'development',
+  mode: 'none',
   entry: './src/client/index.js',
   output: {
-      filename: "bundle.js",
-      path: path.resolve(__dirname, 'dist')
+    filename: 'bundle.js',
+    path: path.resolve(__dirname, 'dist'),
   },
- module: {
+  module: {
     rules: [
-        { test: /\.js$/, loader: 'babel-loader', exclude: /node_modules/ },
-        {
-            test: /\.css$/,
-            use: [ 'style-loader', 'css-loader' ]
-        }
-    ]
- },
+      { test: /\.js$/, loader: 'babel-loader', exclude: /node_modules/ },
+      { test: /\.css$/, loader: 'style-loader!css-loader' },
+      {
+        test: /\.csv$/,
+        loader: 'csv-loader',
+        options: {
+          dynamicTyping: true,
+          header: true,
+          skipEmptyLines: true,
+        },
+      },
+    ],
+  },
 
 };
