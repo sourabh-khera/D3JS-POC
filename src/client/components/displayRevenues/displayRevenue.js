@@ -12,6 +12,6 @@ const displayRevenue = ({ title, amount }) =>
 
 displayRevenue.propTypes = {
   title: PropTypes.string.isRequired,
-  amount: PropTypes.string.isRequired,
+  amount: PropTypes.object.isRequired,
 };
 export default displayRevenue;

@@ -3,16 +3,27 @@ import {
   SAVE_SALES_TOTAL_REVENUES,
   SAVE_CHANNEL_BASED_REVENUES,
   SAVE_SERVICE_BASED_REVENUES,
+  ENABLE_DISABLE_LOADER,
 } from '../constants';
 
 const initialState = {
   totalRevenues: {},
+  showLoader: false,
+  serviceTypeRevenues: [],
 };
 
 const saveTotalRevenues = (state, { totalRevenues }) => ({ ...state, totalRevenues });
-const saveServiceRevenues = () => {};
+const saveServiceRevenues = (state, { serviceTypeRevenues }) => {
+  const keys = Object.keys(serviceTypeRevenues);
+  const serviceType = keys.map(item => (
+    { ServiceType: item, ...serviceTypeRevenues[item] }
+  ));
+  return { ...state, serviceTypeRevenues: serviceType };
+};
 const saveChannelRevenues = () => {};
 const saveCityRevenues = () => {};
+const showHideLoader = (state, { showLoader }) => ({ ...state, showLoader });
+
 
 const revenues = (state = initialState, action) => {
   switch (action.type) {
@@ -24,6 +35,8 @@ const revenues = (state = initialState, action) => {
     return saveChannelRevenues(state, action);
   case SAVE_CITY_BASED_REVENUES:
     return saveCityRevenues(state, action);
+  case ENABLE_DISABLE_LOADER:
+    return showHideLoader(state, action);
   default: return state;
   }
 };

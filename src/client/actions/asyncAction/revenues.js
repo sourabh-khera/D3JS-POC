@@ -1,10 +1,12 @@
 import fetch from 'isomorphic-fetch';
 import API from '../../config/endpoints';
-import { saveSalesTotalRevenues } from '../revenues';
+import { saveSalesTotalRevenues, saveServiceBasedRevenues } from '../revenues';
+import { enableDisableLoader } from '../common';
 
 export const getTotalRevenues = () => async dispatch => {
   const { url, method } = API.ENDPOINT.REVENUES.TOTAL_SALES_REVENUES;
   const URL = `${API.ENDPOINT.DOMAIN}://${API.ENDPOINT.BASE}:${API.ENDPOINT.PORT}${url}`;
+  dispatch(enableDisableLoader(true));
   try {
     const response = await fetch(URL, {
       method,
@@ -12,6 +14,7 @@ export const getTotalRevenues = () => async dispatch => {
     });
     const result = await response.json();
     const totalRevenues = JSON.parse(result[0]);
+    dispatch(enableDisableLoader(false));
     dispatch(saveSalesTotalRevenues(totalRevenues));
   } catch (error) {
     console.log(error);
@@ -27,7 +30,8 @@ export const getServiceBasedRevenues = () => async dispatch => {
       headers: { 'Content-Type': 'application/json' },
     });
     const result = await response.json();
-    const json = JSON.parse(result[0]);
+    const data = JSON.parse(result[0]);
+    dispatch(saveServiceBasedRevenues(data));
   } catch (error) {
       console.log(error);
   }

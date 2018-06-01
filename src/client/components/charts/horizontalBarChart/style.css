@@ -1,0 +1,11 @@
+.horizontalBarHeading {
+  font-family: 'Roboto Mono', monospace;
+  color: #99816b;
+}
+
+.horizontalBarContainer {
+  width: 45%;
+  float: left;
+  padding-top: 40px;
+  padding-left: 30px;
+}

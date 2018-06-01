@@ -55,25 +55,25 @@ def calculateServiceBasedRevenues():
      for i in services:
         serviceTotalTransactions[i] = calculateTotalTransactions(i, df);
      serviceBasedRevenues = dict({
-       'FLights': {
+       'FLIGHTS': {
           'GrossRevenue': serviceGrossRevenue['FLIGHTS'],
           'AverageGrossRevenue': serviceAverageGR['FLIGHTS'],
           'Transactions': serviceTotalTransactions['FLIGHTS'],
           'NetRevenue': serviceNetRevenue['FLIGHTS'],
         },
-       'Hotels': {
+       'HOTELS': {
           'GrossRevenue': serviceGrossRevenue['HOTELS'],
           'AverageGrossRevenue': serviceAverageGR['HOTELS'],
           'Transactions': serviceTotalTransactions['HOTELS'],
           'NetRevenue': serviceNetRevenue['HOTELS'],
         },
-       'Others': {
+       'OTHERS': {
           'GrossRevenue': serviceGrossRevenue['OTHERS'],
           'AverageGrossRevenue': serviceAverageGR['OTHERS'],
           'Transactions': serviceTotalTransactions['OTHERS'],
           'NetRevenue': serviceNetRevenue['OTHERS'],
         },
      });
-     print(json.dumps(erviceBasedRevenues));
+     print(json.dumps(serviceBasedRevenues));
 
 calculateServiceBasedRevenues();

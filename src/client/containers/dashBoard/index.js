@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import isEmpty from 'lodash/isEmpty';
 import CountUp from 'react-countup';
 import PropTypes from 'prop-types';
+import { RingLoader } from 'react-spinners';
 import DisplayRevenue from '../../components/displayRevenues/displayRevenue';
 import {
   getTotalRevenues,
@@ -11,7 +12,8 @@ import {
   getServiceBasedRevenues,
 } from '../../actions/asyncAction/revenues';
 import './style.css';
-import PieChart from '../../components/charts/pieChart';
+import PieChart from '../../components/charts/pieChart/pieChart';
+import HorizontalBarChart from '../../components/charts/horizontalBarChart/horizontalBarChart'
 
 class DashBoard extends Component {
   componentDidMount() {
@@ -23,12 +25,10 @@ class DashBoard extends Component {
     } = this.props;
 
     fetchTotalRevenues();
+    fetchServiceBasedRevenues();
   }
   render() {
-    const { totalRevenues } = this.props;
-    if (isEmpty(totalRevenues)) {
-      return null;
-    }
+    const { totalRevenues, showLoader } = this.props;
     const keys = Object.keys(totalRevenues);
     const renderDisplayRevenues = keys.map((item, id) => (
       <DisplayRevenue
@@ -37,7 +37,7 @@ class DashBoard extends Component {
         amount={<CountUp
           start={0}
           end={totalRevenues[item]}
-          duration={4}
+          duration={2}
           useEasing
           decimals={item === 'Total Transactions' ? 0 : 2}
           decimal={item === 'Total Transactions' ? '' : '.'}
@@ -46,18 +46,35 @@ class DashBoard extends Component {
         />}
       />
     ));
+    const renderComponent = showLoader ?
+      (
+        <div className="loaderContainer">
+          <RingLoader
+            color="#123abc"
+            loading
+          />
+        </div>
+      )
+      : <PieChart />;
     return (
-      <div>
+      <div className="dashBoardContainer">
         <div className="displayRevenueContainer">
           { renderDisplayRevenues }
         </div>
-        <PieChart />
+        {!showLoader ? <HorizontalBarChart /> : null}
+        { renderComponent }
       </div>
     );
   }
 }
+
+DashBoard.defaultProps = {
+  totalRevenues: {},
+};
+
 const mapStateToProps = state => ({
   totalRevenues: state.revenues.totalRevenues,
+  showLoader: state.revenues.showLoader,
 });
 const mapDispatchToProps = dispatch => ({
   fetchTotalRevenues: () => dispatch(getTotalRevenues()),
@@ -67,10 +84,11 @@ const mapDispatchToProps = dispatch => ({
 });
 
 DashBoard.propTypes = {
-  totalRevenues: PropTypes.object.isRequired,
+  totalRevenues: PropTypes.object,
   fetchTotalRevenues: PropTypes.func.isRequired,
   fetchServiceBasedRevenues: PropTypes.func.isRequired,
   fetchChannelBasedRevenues: PropTypes.func.isRequired,
   fetchCityBasedRevenues: PropTypes.func.isRequired,
+  showLoader: PropTypes.bool.isRequired,
 };
 export default connect(mapStateToProps, mapDispatchToProps)(DashBoard);
