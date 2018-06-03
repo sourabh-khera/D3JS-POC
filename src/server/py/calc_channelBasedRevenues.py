@@ -55,31 +55,31 @@ def calculateChannelBasedRevenues():
         channelTotalTransactions[i] = calculateTotalTransactions(i, df);
 
      channelBasedRevenues = dict({
-       'Airport': {
+       'AIRPORT': {
          'GrossRevenue': channelGrossRevenue['AIRPORT'],
          'AverageGrossRevenue': channelAverageGR['AIRPORT'],
          'Transactions': channelTotalTransactions['AIRPORT'],
          'NetRevenue': channelNetRevenue['AIRPORT'],
         },
-       'Branch': {
+       'BRANCH': {
          'GrossRevenue': channelGrossRevenue['BRANCH'],
          'AverageGrossRevenue': channelAverageGR['BRANCH'],
          'Transactions': channelTotalTransactions['BRANCH'],
          'NetRevenue': channelNetRevenue['BRANCH'],
         },
-       'CallCenter': {
+       'CALLCENTER': {
          'GrossRevenue': channelGrossRevenue['CALL CENTER'],
          'AverageGrossRevenue': channelAverageGR['CALL CENTER'],
          'Transactions': channelTotalTransactions['CALL CENTER'],
          'NetRevenue': channelNetRevenue['CALL CENTER'],
         },
-       'Digital': {
+       'DIGITAL': {
           'GrossRevenue': channelGrossRevenue['DIGITAL'],
           'AverageGrossRevenue': channelAverageGR['DIGITAL'],
           'Transactions': channelTotalTransactions['DIGITAL'],
           'NetRevenue': channelNetRevenue['DIGITAL'],
          },
-        'Franchise': {
+        'FRANCHISE': {
           'GrossRevenue': channelGrossRevenue['FRANCHISE'],
           'AverageGrossRevenue': channelAverageGR['FRANCHISE'],
           'Transactions': channelTotalTransactions['FRANCHISE'],

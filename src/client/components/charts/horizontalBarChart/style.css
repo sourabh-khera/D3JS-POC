@@ -1,10 +1,12 @@
 .horizontalBarHeading {
   font-family: 'Roboto Mono', monospace;
   color: #99816b;
+  font-size: 20px;
+  letter-spacing: -2.1px;
 }
 
 .horizontalBarContainer {
-  width: 45%;
+  width: 36%;
   float: left;
   padding-top: 40px;
   padding-left: 30px;

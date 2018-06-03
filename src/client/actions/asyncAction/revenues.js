@@ -1,6 +1,6 @@
 import fetch from 'isomorphic-fetch';
 import API from '../../config/endpoints';
-import { saveSalesTotalRevenues, saveServiceBasedRevenues } from '../revenues';
+import { saveSalesTotalRevenues, saveServiceBasedRevenues, saveChannelBasedRevenues } from '../revenues';
 import { enableDisableLoader } from '../common';
 
 export const getTotalRevenues = () => async dispatch => {
@@ -46,7 +46,8 @@ export const getChannelBasedRevenues = () => async dispatch => {
       headers: { 'Content-Type': 'application/json' },
     });
     const result = await response.json();
-    const json = JSON.parse(result[0]);
+    const data = JSON.parse(result[0]);
+    dispatch(saveChannelBasedRevenues(data));
   } catch (error) {
     console.log(error);
   }

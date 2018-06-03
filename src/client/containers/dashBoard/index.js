@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import isEmpty from 'lodash/isEmpty';
 import CountUp from 'react-countup';
 import PropTypes from 'prop-types';
 import { RingLoader } from 'react-spinners';
@@ -12,8 +11,9 @@ import {
   getServiceBasedRevenues,
 } from '../../actions/asyncAction/revenues';
 import './style.css';
+import DonutChart from '../../components/charts/donutChart/donutChart';
+import HorizontalBarChart from '../../components/charts/horizontalBarChart/horizontalBarChart';
 import PieChart from '../../components/charts/pieChart/pieChart';
-import HorizontalBarChart from '../../components/charts/horizontalBarChart/horizontalBarChart'
 
 class DashBoard extends Component {
   componentDidMount() {
@@ -26,6 +26,7 @@ class DashBoard extends Component {
 
     fetchTotalRevenues();
     fetchServiceBasedRevenues();
+    fetchChannelBasedRevenues();
   }
   render() {
     const { totalRevenues, showLoader } = this.props;
@@ -55,13 +56,18 @@ class DashBoard extends Component {
           />
         </div>
       )
-      : <PieChart />;
+      : (
+        <div>
+          <HorizontalBarChart />
+          <DonutChart />
+          <PieChart />
+        </div>
+      )
     return (
       <div className="dashBoardContainer">
         <div className="displayRevenueContainer">
           { renderDisplayRevenues }
         </div>
-        {!showLoader ? <HorizontalBarChart /> : null}
         { renderComponent }
       </div>
     );

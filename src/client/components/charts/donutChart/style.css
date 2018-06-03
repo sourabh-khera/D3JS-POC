@@ -1,12 +1,12 @@
-.pieHeading {
+.donutHeading {
   font-family: 'Roboto Mono', monospace;
   color: #99816b;
   font-size: 20px;
   letter-spacing: -2.1px;
 }
 
-.pieContainer {
-  margin-left: 40px;
+.donutContainer {
+  margin-left: 30px;
   padding-top: 40px;
   width: 24%;
   float: left;

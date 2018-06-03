@@ -1,18 +1,20 @@
 import React, { Component } from 'react';
 import * as d3 from 'd3';
-import revenueCsv from '../../../csv/revenue.csv';
+import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 import './style.css';
 
 class PieChart extends Component {
-  constructor(props) {
-    super(props);
+  constructor() {
+    super();
     this.margin = {
       top: 20, bottom: 60, left: 40, right: 18,
     };
-    this.width = 400 - this.margin.left - this.margin.right;
-    this.height = 380 - this.margin.top - this.margin.bottom;
+    this.width = 350 - this.margin.left - this.margin.right;
+    this.height = 320 - this.margin.top - this.margin.bottom;
     this.radius = this.width / 2;
   }
+
   componentDidMount() {
     this.createChart();
   }
@@ -20,75 +22,70 @@ class PieChart extends Component {
     this.createChart();
   }
 
-createChart = () => {
-  const node = this.node;
-  const svg = d3.select(node)
-    .attr('width', this.width + this.margin.left + this.margin.right)
-    .attr('height', this.height + this.margin.top + this.margin.bottom)
-    .append('g')
-    .attr('transform', `translate(${this.width / 2},${190})`);
+  createChart = () => {
+    const { channelTypeRevenues } = this.props;
+    const node = this.node;
+    const svg = d3.select(node)
+      .attr('width', this.width + this.margin.left + this.margin.right)
+      .attr('height', this.height + this.margin.top + this.margin.bottom)
+      .append('g')
+      .attr('transform', `translate(${this.width / 2},${150})`);
+    const color = d3.scaleOrdinal(['#98abc5', '#8a89a6', '#ff8c00', '#6b486b', '#d0743c']);
 
-  const arc = d3.arc()
-    .innerRadius(this.radius - 50)
-    .outerRadius(this.radius - 10);
+    const pie = d3.pie()
+      .sort(null)
+      .value(d => (d.GrossRevenue));
 
-  const pie = d3.pie()
-    .sort(null)
-    .value(d => (d.amount));
+    const path = d3.arc()
+      .outerRadius(this.radius - 10)
+      .innerRadius(0);
 
-  const arcColor = d3.scaleOrdinal()
-    .range(['#4676ae', '#c86677']);
+    // const arc = d3.arc()
+    //   .outerRadius(this.radius - 50)
+    //   .innerRadius(this.radius - 50);
 
-  const pieTween = b => {
-    b.innerRadius = 0;
-    const i = d3.interpolate({ startAngle: 0, endAngle: 0 }, b);
-    return t => (arc(i(t)));
-  };
-  const leftArc = d3.arc()
-    .innerRadius(this.radius - -10)
-    .outerRadius(this.radius - -10);
+    const pieTween = b => {
+      b.innerRadius = 0;
+      const i = d3.interpolate({ startAngle: 0, endAngle: 0 }, b);
+      return t => (path(i(t)));
+    };
 
-  revenueCsv.forEach(row => {
-    row.amount = +row.amount;
-    row.revenueType = row.revenueType;
-  });
-  const scale = () => {
-    d3.select(this)
+    const g = svg.selectAll('.arc')
+      .data(pie(channelTypeRevenues))
+      .enter()
+      .append('g')
+      .attr('class', 'arc');
+
+    g.append('path')
+      .attr('d', path)
+      .attr('fill', d => (color(d.data.ChannelType)))
       .transition()
-      .attr('transform', 'scaleX(1.1)')
-      .attr('transform', 'scaleY(1.1)')
-      .duration(200);
+      .ease(d3.easeLinear)
+      .duration(3000)
+      .attrTween('d', pieTween);
+    // g.append('text')
+    //   .attr('transform', d => (`translate(${label.centroid(d)})`))
+    //   .attr('dy', '0.35em')
+    //   .text(d => (d.data.ChannelType));
   }
-  const g = svg.selectAll('.arc')
-    .data(pie(revenueCsv))
-    .enter()
-    .append('g')
-    .attr('class', 'arc');
-  //  .on('mouseover', scale);
 
-  g.append('path')
-    .attr('d', arc)
-    .attr('fill', d => (arcColor(d.data.revenueType)))
-    .transition()
-    .ease(d3.easeLinear)
-    .duration(3000)
-    .attrTween('d', pieTween);
+  render() {
+    return (
+      <div className="pieContainer">
+        <h3 className="pieHeading">Net Revenue per Channel Type</h3>
+        <svg ref={node => { this.node = node; }} />
+      </div>
+    );
+  }
+}
 
-  g.append('text')
-    .attr('transform', d => (`translate(${leftArc.centroid(d)})`))
-    .attr('dy', '.35em')
-    .style('text-anchor', 'middle')
-    .text(d => (d.data.revenueType))
-    .attr('fill', 'black');
+const mapStateToProps = state => ({
+  channelTypeRevenues: state.revenues.channelTypeRevenues,
+});
+PieChart.defaultProps = {
+  channelTypeRevenues: [],
 };
-render() {
-  return (
-    <div className="pieContainer">
-      <h3 className="pieHeading">Online/ Offline Gross Revenue</h3>
-      <svg ref={node => { this.node = node; }} />
-    </div>
-  );
-}
-}
-
-export default PieChart;
+PieChart.propTypes = {
+  channelTypeRevenues: PropTypes.array,
+};
+export default connect(mapStateToProps)(PieChart);

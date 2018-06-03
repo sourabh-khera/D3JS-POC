@@ -10,7 +10,7 @@ class HorizontalBarChart extends Component {
     this.margin = {
       top: 20, right: 20, bottom: 30, left: 50,
     };
-    this.width = 500 - this.margin.left - this.margin.right;
+    this.width = 400 - this.margin.left - this.margin.right;
     this.height = 300 - this.margin.top - this.margin.bottom;
   }
   componentDidMount() {

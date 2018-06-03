@@ -10,9 +10,11 @@ const initialState = {
   totalRevenues: {},
   showLoader: false,
   serviceTypeRevenues: [],
+  channelTypeRevenues: [],
 };
 
 const saveTotalRevenues = (state, { totalRevenues }) => ({ ...state, totalRevenues });
+
 const saveServiceRevenues = (state, { serviceTypeRevenues }) => {
   const keys = Object.keys(serviceTypeRevenues);
   const serviceType = keys.map(item => (
@@ -20,8 +22,17 @@ const saveServiceRevenues = (state, { serviceTypeRevenues }) => {
   ));
   return { ...state, serviceTypeRevenues: serviceType };
 };
-const saveChannelRevenues = () => {};
+
+const saveChannelRevenues = (state, { channelTypeRevenues }) => {
+  const keys = Object.keys(channelTypeRevenues);
+  const channelType = keys.map(item => (
+    { ChannelType: item, ...channelTypeRevenues[item] }
+  ));
+  return { ...state, channelTypeRevenues: channelType };
+};
+
 const saveCityRevenues = () => {};
+
 const showHideLoader = (state, { showLoader }) => ({ ...state, showLoader });
 
 
