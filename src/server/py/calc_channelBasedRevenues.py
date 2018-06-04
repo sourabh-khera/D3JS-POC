@@ -67,7 +67,7 @@ def calculateChannelBasedRevenues():
          'Transactions': channelTotalTransactions['BRANCH'],
          'NetRevenue': channelNetRevenue['BRANCH'],
         },
-       'CALLCENTER': {
+       'CALL CENTER': {
          'GrossRevenue': channelGrossRevenue['CALL CENTER'],
          'AverageGrossRevenue': channelAverageGR['CALL CENTER'],
          'Transactions': channelTotalTransactions['CALL CENTER'],

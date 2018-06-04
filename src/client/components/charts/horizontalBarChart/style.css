@@ -10,4 +10,17 @@
   float: left;
   padding-top: 40px;
   padding-left: 30px;
+  position: relative;
+  min-height: 380px;
+}
+
+.horizontalLoaderContainer{
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  margin: auto;
+  height: 60px;
+  width: 60px;
 }

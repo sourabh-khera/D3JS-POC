@@ -4,6 +4,8 @@ import {
   SAVE_CHANNEL_BASED_REVENUES,
   SAVE_SERVICE_BASED_REVENUES,
   ENABLE_DISABLE_LOADER,
+  ENABLE_DISABLE_SERVICE_TYPE_LOADER,
+  ENABLE_DISABLE_CHANNEL_TYPE_LOADER,
 } from '../constants';
 
 const initialState = {
@@ -11,6 +13,8 @@ const initialState = {
   showLoader: false,
   serviceTypeRevenues: [],
   channelTypeRevenues: [],
+  showServiceTypeLoader: false,
+  showChannelTypeLoader: false,
 };
 
 const saveTotalRevenues = (state, { totalRevenues }) => ({ ...state, totalRevenues });
@@ -33,8 +37,16 @@ const saveChannelRevenues = (state, { channelTypeRevenues }) => {
 
 const saveCityRevenues = () => {};
 
-const showHideLoader = (state, { showLoader }) => ({ ...state, showLoader });
-
+const showHideLoader = (state, { showLoader, showServiceTypeLoader, showChannelTypeLoader }, type) => {
+  if (type === 'dashboard') {
+    return { ...state, showLoader };
+  } else if (type === 'service') {
+    return { ...state, showServiceTypeLoader };
+  } else if (type === 'channel') {
+    return { ...state, showChannelTypeLoader };
+  }
+  return { ...state };
+};
 
 const revenues = (state = initialState, action) => {
   switch (action.type) {
@@ -47,7 +59,11 @@ const revenues = (state = initialState, action) => {
   case SAVE_CITY_BASED_REVENUES:
     return saveCityRevenues(state, action);
   case ENABLE_DISABLE_LOADER:
-    return showHideLoader(state, action);
+    return showHideLoader(state, action, 'dashboard');
+  case ENABLE_DISABLE_SERVICE_TYPE_LOADER:
+    return showHideLoader(state, action, 'service');
+  case ENABLE_DISABLE_CHANNEL_TYPE_LOADER:
+    return showHideLoader(state, action, 'channel');
   default: return state;
   }
 };

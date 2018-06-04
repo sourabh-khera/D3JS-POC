@@ -1,7 +1,15 @@
 import fetch from 'isomorphic-fetch';
 import API from '../../config/endpoints';
-import { saveSalesTotalRevenues, saveServiceBasedRevenues, saveChannelBasedRevenues } from '../revenues';
-import { enableDisableLoader } from '../common';
+import {
+  saveSalesTotalRevenues,
+  saveServiceBasedRevenues,
+  saveChannelBasedRevenues,
+} from '../revenues';
+import {
+  enableDisableLoader,
+  enableDisableServiceTypeLoader,
+  enableDisableChannelTypeLoader,
+} from '../common';
 
 export const getTotalRevenues = () => async dispatch => {
   const { url, method } = API.ENDPOINT.REVENUES.TOTAL_SALES_REVENUES;
@@ -24,6 +32,7 @@ export const getTotalRevenues = () => async dispatch => {
 export const getServiceBasedRevenues = () => async dispatch => {
   const { url, method } = API.ENDPOINT.REVENUES.SERVICE_BASED_REVENUES;
   const URL = `${API.ENDPOINT.DOMAIN}://${API.ENDPOINT.BASE}:${API.ENDPOINT.PORT}${url}`;
+  dispatch(enableDisableServiceTypeLoader(true));
   try {
     const response = await fetch(URL, {
       method,
@@ -31,6 +40,7 @@ export const getServiceBasedRevenues = () => async dispatch => {
     });
     const result = await response.json();
     const data = JSON.parse(result[0]);
+    dispatch(enableDisableServiceTypeLoader(false));
     dispatch(saveServiceBasedRevenues(data));
   } catch (error) {
       console.log(error);
@@ -40,6 +50,7 @@ export const getServiceBasedRevenues = () => async dispatch => {
 export const getChannelBasedRevenues = () => async dispatch => {
   const { url, method } = API.ENDPOINT.REVENUES.CHANNEL_BASED_REVENUES;
   const URL = `${API.ENDPOINT.DOMAIN}://${API.ENDPOINT.BASE}:${API.ENDPOINT.PORT}${url}`;
+  dispatch(enableDisableChannelTypeLoader(true));
   try {
     const response = await fetch(URL, {
       method,
@@ -47,6 +58,7 @@ export const getChannelBasedRevenues = () => async dispatch => {
     });
     const result = await response.json();
     const data = JSON.parse(result[0]);
+    dispatch(enableDisableChannelTypeLoader(false));
     dispatch(saveChannelBasedRevenues(data));
   } catch (error) {
     console.log(error);

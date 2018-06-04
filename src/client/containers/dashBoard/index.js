@@ -14,6 +14,8 @@ import './style.css';
 import DonutChart from '../../components/charts/donutChart/donutChart';
 import HorizontalBarChart from '../../components/charts/horizontalBarChart/horizontalBarChart';
 import PieChart from '../../components/charts/pieChart/pieChart';
+import VerticalBarChart from '../../components/charts/verticalBarChart/verticalBarChart';
+
 
 class DashBoard extends Component {
   componentDidMount() {
@@ -57,12 +59,13 @@ class DashBoard extends Component {
         </div>
       )
       : (
-        <div>
+        <div className="chartsContainer">
           <HorizontalBarChart />
           <DonutChart />
           <PieChart />
+          <VerticalBarChart />
         </div>
-      )
+      );
     return (
       <div className="dashBoardContainer">
         <div className="displayRevenueContainer">

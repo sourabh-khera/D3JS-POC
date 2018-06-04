@@ -10,7 +10,11 @@
   right: 0;
   bottom: 0;
   margin: auto;
-  height: 80px;
-  width: 80px;
-
+  height: 60px;
+  width: 60px;
+}
+.chartsContainer {
+  clear: both;
+  content: '';
+  display: table;
 }

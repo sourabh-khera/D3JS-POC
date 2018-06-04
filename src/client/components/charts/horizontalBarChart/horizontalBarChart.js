@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import * as d3 from 'd3';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
+import { BounceLoader } from 'react-spinners';
 import './style.css';
 
 class HorizontalBarChart extends Component {
@@ -66,10 +67,21 @@ class HorizontalBarChart extends Component {
       .call(yAxis);
   }
   render() {
+    const { showServiceTypeLoader } = this.props;
+    const renderComponent = showServiceTypeLoader ?
+      (
+        <div className="horizontalLoaderContainer">
+          <BounceLoader
+            color="#123abc"
+            loading
+          />
+        </div>
+      )
+      : <svg ref={node => { this.node = node; }} />;
     return (
       <div className="horizontalBarContainer">
         <h3 className="horizontalBarHeading">Gross Revenue & Net Revenue per Service Type</h3>
-        <svg ref={node => { this.node = node; }} />
+        {renderComponent}
       </div>
     );
   }
@@ -77,11 +89,13 @@ class HorizontalBarChart extends Component {
 
 const mapStateToProps = state => ({
   serviceTypeRevenues: state.revenues.serviceTypeRevenues,
+  showServiceTypeLoader: state.revenues.showServiceTypeLoader,
 });
 HorizontalBarChart.defaultProps = {
   serviceTypeRevenues: [],
 };
 HorizontalBarChart.propTypes = {
   serviceTypeRevenues: PropTypes.array,
+  showServiceTypeLoader: PropTypes.bool,
 };
 export default connect(mapStateToProps)(HorizontalBarChart);
