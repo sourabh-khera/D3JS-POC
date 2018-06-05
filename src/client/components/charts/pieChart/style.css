@@ -8,10 +8,10 @@
 .pieContainer {
   margin-left: 40px;
   padding-top: 40px;
-  width: 24%;
   float: left;
   position: relative;
-  min-height: 380px;
+  min-height: 320px;
+  width: 400px;
 }
 .pieLoaderContainer{
   position: absolute;

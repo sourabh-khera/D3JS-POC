@@ -6,8 +6,9 @@
 }
 
 .donutContainer {
-  margin-left: 30px;
+  width: 320px;
+  min-height: 320px;
+  margin-left: 50px;
   padding-top: 40px;
-  width: 24%;
   float: left;
 }
