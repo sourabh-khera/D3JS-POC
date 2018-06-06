@@ -6,15 +6,18 @@ import {
   ENABLE_DISABLE_LOADER,
   ENABLE_DISABLE_SERVICE_TYPE_LOADER,
   ENABLE_DISABLE_CHANNEL_TYPE_LOADER,
+  ENABLE_DISABLE_CITY_LOADER,
 } from '../constants';
 
 const initialState = {
   totalRevenues: {},
-  showLoader: false,
+  showLoader: true,
   serviceTypeRevenues: [],
   channelTypeRevenues: [],
+  cityRevenues: {},
   showServiceTypeLoader: false,
   showChannelTypeLoader: false,
+  showCityLoader: false,
 };
 
 const saveTotalRevenues = (state, { totalRevenues }) => ({ ...state, totalRevenues });
@@ -35,15 +38,32 @@ const saveChannelRevenues = (state, { channelTypeRevenues }) => {
   return { ...state, channelTypeRevenues: channelType };
 };
 
-const saveCityRevenues = () => {};
 
-const showHideLoader = (state, { showLoader, showServiceTypeLoader, showChannelTypeLoader }, type) => {
+const saveCityRevenues = (state, { cityRevenues }) => {
+  const revenues = { city: "cities", children: [] };
+  for( let i in cityRevenues){
+      revenues.children.push({ city: `city${i}`, children: [{ city: i, grossRevenue: cityRevenues[i] }] });
+  };
+  return { ...state, cityRevenues: revenues };
+};
+
+const showHideLoader = (
+  state,
+  {
+    showLoader,
+    showServiceTypeLoader,
+    showChannelTypeLoader,
+    showCityLoader,
+  }, type,
+) => {
   if (type === 'dashboard') {
     return { ...state, showLoader };
   } else if (type === 'service') {
     return { ...state, showServiceTypeLoader };
   } else if (type === 'channel') {
     return { ...state, showChannelTypeLoader };
+  } else if (type === 'city') {
+    return { ...state, showCityLoader };
   }
   return { ...state };
 };
@@ -64,6 +84,8 @@ const revenues = (state = initialState, action) => {
     return showHideLoader(state, action, 'service');
   case ENABLE_DISABLE_CHANNEL_TYPE_LOADER:
     return showHideLoader(state, action, 'channel');
+  case ENABLE_DISABLE_CITY_LOADER:
+    return showHideLoader(state, action, 'city');
   default: return state;
   }
 };

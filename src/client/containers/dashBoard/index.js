@@ -15,7 +15,7 @@ import DonutChart from '../../components/charts/donutChart/donutChart';
 import HorizontalBarChart from '../../components/charts/horizontalBarChart/horizontalBarChart';
 import PieChart from '../../components/charts/pieChart/pieChart';
 import VerticalBarChart from '../../components/charts/verticalBarChart/verticalBarChart';
-
+import TreeMap from '../../components/charts/treemap/treemap';
 
 class DashBoard extends Component {
   componentDidMount() {
@@ -29,6 +29,7 @@ class DashBoard extends Component {
     fetchTotalRevenues();
     fetchServiceBasedRevenues();
     fetchChannelBasedRevenues();
+    fetchCityBasedRevenues();
   }
   render() {
     const { totalRevenues, showLoader } = this.props;
@@ -59,16 +60,21 @@ class DashBoard extends Component {
         </div>
       )
       : (
-        <div className="chartsContainer">
-          <HorizontalBarChart />
-          <DonutChart />
-          <PieChart />
-          <VerticalBarChart />
+        <div className="chartsContainer clearFix">
+          <div className="items clearFix">
+            <HorizontalBarChart />
+            <DonutChart />
+            <PieChart />
+          </div>
+          <div className="items clearFix">
+            <VerticalBarChart />
+            <TreeMap />
+          </div>
         </div>
       );
     return (
       <div className="dashBoardContainer">
-        <div className="displayRevenueContainer">
+        <div className="displayRevenueContainer clearFix">
           { renderDisplayRevenues }
         </div>
         { renderComponent }

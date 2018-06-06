@@ -13,7 +13,7 @@
   height: 60px;
   width: 60px;
 }
-.chartsContainer {
+.clearFix {
   clear: both;
   content: '';
   display: table;

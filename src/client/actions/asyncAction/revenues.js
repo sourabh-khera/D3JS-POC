@@ -4,11 +4,13 @@ import {
   saveSalesTotalRevenues,
   saveServiceBasedRevenues,
   saveChannelBasedRevenues,
+  saveCityBasedRevenues,
 } from '../revenues';
 import {
   enableDisableLoader,
   enableDisableServiceTypeLoader,
   enableDisableChannelTypeLoader,
+  enableDisableCityLoader,
 } from '../common';
 
 export const getTotalRevenues = () => async dispatch => {
@@ -68,13 +70,16 @@ export const getChannelBasedRevenues = () => async dispatch => {
 export const getCityBasedRevenues = () => async dispatch => {
   const { url, method } = API.ENDPOINT.REVENUES.CITY_BASED_REVENUES;
   const URL = `${API.ENDPOINT.DOMAIN}://${API.ENDPOINT.BASE}:${API.ENDPOINT.PORT}${url}`;
+  dispatch(enableDisableCityLoader(true));
   try {
     const response = await fetch(URL, {
       method,
       headers: { 'Content-Type': 'application/json' },
     });
     const result = await response.json();
-    const json = JSON.parse(result[0]);
+    const data = JSON.parse(result[0]);
+    dispatch(enableDisableCityLoader(false));
+    dispatch(saveCityBasedRevenues(data));
   } catch (error) {
     console.log(error);
   }

@@ -5,16 +5,16 @@
    color: #4676ae;
    font-weight: 400;
    letter-spacing: -2.1px;
+   text-align: center;
 }
 
 .title {
   margin: 0 0 10px;
   color: #99816b;
+  text-align: center;
 }
 
 .titleRevenueContainer {
-  flex: 1;
-  display: flex;
-  align-items: center;
-  flex-direction: column;
+ float: left;
+ width: 316px;
 }
