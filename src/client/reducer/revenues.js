@@ -18,24 +18,35 @@ const initialState = {
   showServiceTypeLoader: false,
   showChannelTypeLoader: false,
   showCityLoader: false,
+  Transactions: [],
 };
 
 const saveTotalRevenues = (state, { totalRevenues }) => ({ ...state, totalRevenues });
 
 const saveServiceRevenues = (state, { serviceTypeRevenues }) => {
+  const serviceTypeObj = { type: 'Service' };
+  for (let key in serviceTypeRevenues) {
+    serviceTypeObj[key] = serviceTypeRevenues[key].Transactions;
+  };
   const keys = Object.keys(serviceTypeRevenues);
   const serviceType = keys.map(item => (
     { ServiceType: item, ...serviceTypeRevenues[item] }
   ));
-  return { ...state, serviceTypeRevenues: serviceType };
+  console.log('serviceTypeObj', serviceTypeObj)
+  return { ...state, serviceTypeRevenues: serviceType, Transactions: [...state.Transactions, serviceTypeObj] };
 };
 
 const saveChannelRevenues = (state, { channelTypeRevenues }) => {
+  const channelTypeObj = { type: 'Channel' };
+  for (let key in channelTypeRevenues) {
+    channelTypeObj[key] = channelTypeRevenues[key].Transactions;
+  };
   const keys = Object.keys(channelTypeRevenues);
   const channelType = keys.map(item => (
     { ChannelType: item, ...channelTypeRevenues[item] }
   ));
-  return { ...state, channelTypeRevenues: channelType };
+  console.log('channelTypeObj', channelTypeObj)
+  return { ...state, channelTypeRevenues: channelType, Transactions: [...state.Transactions, channelTypeObj] };
 };
 
 

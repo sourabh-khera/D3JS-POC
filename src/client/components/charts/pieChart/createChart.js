@@ -5,6 +5,8 @@ const createChart = (height, width, margin, d3, channelTypeRevenues, node, radiu
     .attr('height', height + margin.top + margin.bottom)
     .append('g')
     .attr('transform', `translate(${width / 2},${150})`);
+  const format = d3.format(',d');
+
   const color = d3.scaleOrdinal(['#98abc5', '#8a89a6', '#ff8c00', '#6b486b', '#d0743c']);
 
   const pie = d3.pie()
@@ -20,12 +22,35 @@ const createChart = (height, width, margin, d3, channelTypeRevenues, node, radiu
     const i = d3.interpolate({ startAngle: 0, endAngle: 0 }, b);
     return t => (path(i(t)));
   };
+  const tooltip = d3.select('body').append('div')
+    .style('position', 'absolute')
+    .style('opacity', 0)
+    .attr('class', 'tooltip')
+    .style('display', 'inline-block')
+    .style('padding', '10px')
+    .style('background-color', 'rgba(0,0,0,0.5)')
+    .style('color', 'white');
 
   const g = svg.selectAll('.arc')
     .data(pie(channelTypeRevenues))
     .enter()
     .append('g')
-    .attr('class', 'arc');
+    .attr('class', 'arc')
+    .on('mouseover', d => {
+      tooltip
+        .style('opacity', 1)
+        .text(`NR = $${format(d.data.NetRevenue)}`);
+    })
+    .on('mousemove', () => {
+      tooltip
+        .style('left', `${d3.event.pageX}px`)
+        .style('top', `${d3.event.pageY - 40}px`);
+    })
+    .on('mouseout', () => {
+      tooltip
+        .style('opacity', 0);
+    });
+
 
   g.append('path')
     .attr('d', path)

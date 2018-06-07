@@ -12,6 +12,15 @@ const createChart = (height, width, margin, d3, serviceTypeRevenues, node) => {
     .append('g')
     .attr('transform', `translate(${margin.left} , ${margin.top})`);
 
+  const tooltip = d3.select('body').append('div')
+    .style('position', 'absolute')
+    .style('opacity', 0)
+    .attr('class', 'tooltip')
+    .style('display', 'inline-block')
+    .style('padding', '10px')
+    .style('background-color', 'rgba(0,0,0,0.5)')
+    .style('color', 'white');
+
   const stack = d3.stack()
     .keys(['GrossRevenue', 'NetRevenue'])
     .offset(d3.stackOffsetNone);
@@ -32,7 +41,21 @@ const createChart = (height, width, margin, d3, serviceTypeRevenues, node) => {
     .attr('y', d => (yScale(d.data.ServiceType)))
     .attr('x', d => (xScale(d[0])))
     .attr('height', yScale.bandwidth())
-    .attr('width', d => (xScale(d[1]) - xScale(d[0])));
+    .attr('width', d => (xScale(d[1]) - xScale(d[0])))
+    // .on('mouseover', d => {
+    //   tooltip
+    //     .style('opacity', 1)
+    //     .text(data[]);
+    // })
+    // .on('mousemove', () => {
+    //   tooltip
+    //     .style('left', `${d3.event.pageX}px`)
+    //     .style('top', `${d3.event.pageY - 40}px`);
+    // })
+    // .on('mouseout', () => {
+    //   tooltip
+    //     .style('opacity', 0);
+    // });
 
   svg.append('g')
     .attr('class', 'axis axis--x')
@@ -43,6 +66,29 @@ const createChart = (height, width, margin, d3, serviceTypeRevenues, node) => {
     .attr('class', 'axis axis--y')
     .attr('transform', 'translate(0,0)')
     .call(yAxis);
+
+  const legend = svg.append('g')
+    .attr('font-family', 'sans-serif')
+    .attr('font-size', 10)
+    .attr('text-anchor', 'end')
+    .attr('transform', `translate(0, ${150})`)
+    .selectAll('g')
+    .data(['Gross Revenue', 'Net Revenue'])
+    .enter()
+    .append('g')
+    .attr('transform', (d, i) => `translate(0,${i * 20})`);
+
+  legend.append('rect')
+    .attr('x', width)
+    .attr('width', 19)
+    .attr('height', 19)
+    .attr('fill', (d, i) => (color(i)));
+
+  legend.append('text')
+    .attr('x', width - 4)
+    .attr('y', 9.5)
+    .attr('dy', '0.32em')
+    .text(d => d);
 };
 
 export default createChart;

@@ -16,6 +16,7 @@ import HorizontalBarChart from '../../components/charts/horizontalBarChart/horiz
 import PieChart from '../../components/charts/pieChart/pieChart';
 import VerticalBarChart from '../../components/charts/verticalBarChart/verticalBarChart';
 import TreeMap from '../../components/charts/treemap/treemap';
+import GroupBarChart from '../../components/charts/groupBarChart/groupBarChart';
 
 class DashBoard extends Component {
   componentDidMount() {
@@ -69,6 +70,9 @@ class DashBoard extends Component {
           <div className="items clearFix">
             <VerticalBarChart />
             <TreeMap />
+          </div>
+          <div className="items clearFix">
+            <GroupBarChart />
           </div>
         </div>
       );

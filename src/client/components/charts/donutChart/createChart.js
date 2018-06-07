@@ -5,6 +5,7 @@ const createChart = (height, width, margin, d3, revenueCsv, node, radius) => {
     .attr('height', height + margin.top + margin.bottom)
     .append('g')
     .attr('transform', `translate(${width / 2},${150})`);
+  const format = d3.format(',d');
 
   const arc = d3.arc()
     .innerRadius(radius - 40)
@@ -22,6 +23,14 @@ const createChart = (height, width, margin, d3, revenueCsv, node, radius) => {
     const i = d3.interpolate({ startAngle: 0, endAngle: 0 }, b);
     return t => (arc(i(t)));
   };
+  const tooltip = d3.select('body').append('div')
+    .style('position', 'absolute')
+    .style('opacity', 0)
+    .attr('class', 'tooltip')
+    .style('display', 'inline-block')
+    .style('padding', '10px')
+    .style('background-color', 'rgba(0,0,0,0.5)')
+    .style('color', 'white');
   const leftArc = d3.arc()
     .innerRadius(radius - -10)
     .outerRadius(radius - -10);
@@ -34,7 +43,21 @@ const createChart = (height, width, margin, d3, revenueCsv, node, radius) => {
     .data(pie(revenueCsv))
     .enter()
     .append('g')
-    .attr('class', 'arc');
+    .attr('class', 'arc')
+    .on('mouseover', d => {
+      tooltip
+        .style('opacity', 1)
+        .text(`GR = $${format(d.data.amount)}`);
+    })
+    .on('mousemove', () => {
+      tooltip
+        .style('left', `${d3.event.pageX}px`)
+        .style('top', `${d3.event.pageY - 40}px`);
+    })
+    .on('mouseout', () => {
+      tooltip
+        .style('opacity', 0);
+    });
 
   g.append('path')
     .attr('d', arc)

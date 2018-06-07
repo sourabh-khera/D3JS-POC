@@ -7,6 +7,7 @@ const createChart = (height, width, margin, d3, channelTypeRevenues, node) => {
     .range([height, 0]);
 
   const color = d3.scaleOrdinal(['#6b486b', '#8a89a6', '#ff8c00', '#98abc5', '#d0743c']);
+  const format = d3.format(',d');
 
 
   const xAxis = d3.axisBottom(xScale);
@@ -81,11 +82,10 @@ const createChart = (height, width, margin, d3, channelTypeRevenues, node) => {
     .attr('width', 30)
     .attr('transform', `translate(${22},${0})`)
     .attr('fill', d => color(d.ChannelType))
-
     .on('mouseover', d => {
       tooltip
         .style('opacity', 1)
-        .text(d.ChannelType);
+        .text(`${d.ChannelType} = ${format(d.GrossRevenue)}`);
     })
     .on('mousemove', () => {
       tooltip
