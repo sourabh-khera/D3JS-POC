@@ -17,6 +17,8 @@ import PieChart from '../../components/charts/pieChart/pieChart';
 import VerticalBarChart from '../../components/charts/verticalBarChart/verticalBarChart';
 import TreeMap from '../../components/charts/treemap/treemap';
 import GroupBarChart from '../../components/charts/groupBarChart/groupBarChart';
+import Date from '../../components/selectdate/selectDate';
+import LineChart from '../../components/charts/lineChart/lineChart';
 
 class DashBoard extends Component {
   componentDidMount() {
@@ -25,12 +27,13 @@ class DashBoard extends Component {
       fetchCityBasedRevenues,
       fetchChannelBasedRevenues,
       fetchServiceBasedRevenues,
+      dateObj,
     } = this.props;
 
-    fetchTotalRevenues();
-    fetchServiceBasedRevenues();
-    fetchChannelBasedRevenues();
-    fetchCityBasedRevenues();
+    fetchTotalRevenues(dateObj);
+    fetchServiceBasedRevenues(dateObj);
+    fetchChannelBasedRevenues(dateObj);
+    fetchCityBasedRevenues(dateObj);
   }
   render() {
     const { totalRevenues, showLoader } = this.props;
@@ -62,6 +65,10 @@ class DashBoard extends Component {
       )
       : (
         <div className="chartsContainer clearFix">
+          <Date />
+          <div className="displayRevenueContainer clearFix">
+            { renderDisplayRevenues }
+          </div>
           <div className="items clearFix">
             <HorizontalBarChart />
             <DonutChart />
@@ -73,14 +80,12 @@ class DashBoard extends Component {
           </div>
           <div className="items clearFix">
             <GroupBarChart />
+            <LineChart />
           </div>
         </div>
       );
     return (
       <div className="dashBoardContainer">
-        <div className="displayRevenueContainer clearFix">
-          { renderDisplayRevenues }
-        </div>
         { renderComponent }
       </div>
     );
@@ -89,17 +94,19 @@ class DashBoard extends Component {
 
 DashBoard.defaultProps = {
   totalRevenues: {},
+  dateObj: {},
 };
 
 const mapStateToProps = state => ({
   totalRevenues: state.revenues.totalRevenues,
   showLoader: state.revenues.showLoader,
+  dateObj: state.revenues.dateObj,
 });
 const mapDispatchToProps = dispatch => ({
-  fetchTotalRevenues: () => dispatch(getTotalRevenues()),
-  fetchServiceBasedRevenues: () => dispatch(getServiceBasedRevenues()),
-  fetchChannelBasedRevenues: () => dispatch(getChannelBasedRevenues()),
-  fetchCityBasedRevenues: () => dispatch(getCityBasedRevenues()),
+  fetchTotalRevenues: dateObj => dispatch(getTotalRevenues(dateObj)),
+  fetchServiceBasedRevenues: dateObj => dispatch(getServiceBasedRevenues(dateObj)),
+  fetchChannelBasedRevenues: dateObj => dispatch(getChannelBasedRevenues(dateObj)),
+  fetchCityBasedRevenues: dateObj => dispatch(getCityBasedRevenues(dateObj)),
 });
 
 DashBoard.propTypes = {
@@ -109,5 +116,6 @@ DashBoard.propTypes = {
   fetchChannelBasedRevenues: PropTypes.func.isRequired,
   fetchCityBasedRevenues: PropTypes.func.isRequired,
   showLoader: PropTypes.bool.isRequired,
+  dateObj: PropTypes.object,
 };
 export default connect(mapStateToProps, mapDispatchToProps)(DashBoard);

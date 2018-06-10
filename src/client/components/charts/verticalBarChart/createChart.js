@@ -19,7 +19,9 @@ const createChart = (height, width, margin, d3, channelTypeRevenues, node) => {
     .style('display', 'inline-block')
     .style('padding', '10px')
     .style('background-color', 'rgba(0,0,0,0.5)')
-    .style('color', 'white');
+    .style('color', 'white')
+    .style('font-size', '11px');
+
 
   const svg = d3.select(svgNode)
     .attr('width', width + margin.left + margin.right)

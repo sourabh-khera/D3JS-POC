@@ -3,6 +3,10 @@ import pandas as pd
 import numpy as np
 import json
 import os
+import sys
+
+dateObj=sys.argv[1]
+
 
 def createConnection():
      hostUrl = os.environ.get('HIVEHOSTURL');

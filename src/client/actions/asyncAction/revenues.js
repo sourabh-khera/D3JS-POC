@@ -13,9 +13,9 @@ import {
   enableDisableCityLoader,
 } from '../common';
 
-export const getTotalRevenues = () => async dispatch => {
+export const getTotalRevenues = dateObj => async dispatch => {
   const { url, method } = API.ENDPOINT.REVENUES.TOTAL_SALES_REVENUES;
-  const URL = `${API.ENDPOINT.DOMAIN}://${API.ENDPOINT.BASE}:${API.ENDPOINT.PORT}${url}`;
+  const URL = `${API.ENDPOINT.DOMAIN}://${API.ENDPOINT.BASE}:${API.ENDPOINT.PORT}${url}/?date=${dateObj}`;
   dispatch(enableDisableLoader(true));
   try {
     const response = await fetch(URL, {
@@ -31,9 +31,9 @@ export const getTotalRevenues = () => async dispatch => {
   }
 };
 
-export const getServiceBasedRevenues = () => async dispatch => {
+export const getServiceBasedRevenues = dateObj => async dispatch => {
   const { url, method } = API.ENDPOINT.REVENUES.SERVICE_BASED_REVENUES;
-  const URL = `${API.ENDPOINT.DOMAIN}://${API.ENDPOINT.BASE}:${API.ENDPOINT.PORT}${url}`;
+  const URL = `${API.ENDPOINT.DOMAIN}://${API.ENDPOINT.BASE}:${API.ENDPOINT.PORT}${url}/?date=${dateObj}`;
   dispatch(enableDisableServiceTypeLoader(true));
   try {
     const response = await fetch(URL, {
@@ -49,9 +49,9 @@ export const getServiceBasedRevenues = () => async dispatch => {
   }
 };
 
-export const getChannelBasedRevenues = () => async dispatch => {
+export const getChannelBasedRevenues = dateObj => async dispatch => {
   const { url, method } = API.ENDPOINT.REVENUES.CHANNEL_BASED_REVENUES;
-  const URL = `${API.ENDPOINT.DOMAIN}://${API.ENDPOINT.BASE}:${API.ENDPOINT.PORT}${url}`;
+  const URL = `${API.ENDPOINT.DOMAIN}://${API.ENDPOINT.BASE}:${API.ENDPOINT.PORT}${url}/?date=${dateObj}`;
   dispatch(enableDisableChannelTypeLoader(true));
   try {
     const response = await fetch(URL, {
@@ -67,9 +67,9 @@ export const getChannelBasedRevenues = () => async dispatch => {
   }
 };
 
-export const getCityBasedRevenues = () => async dispatch => {
+export const getCityBasedRevenues = dateObj => async dispatch => {
   const { url, method } = API.ENDPOINT.REVENUES.CITY_BASED_REVENUES;
-  const URL = `${API.ENDPOINT.DOMAIN}://${API.ENDPOINT.BASE}:${API.ENDPOINT.PORT}${url}`;
+  const URL = `${API.ENDPOINT.DOMAIN}://${API.ENDPOINT.BASE}:${API.ENDPOINT.PORT}${url}/?date=${dateObj}`;
   dispatch(enableDisableCityLoader(true));
   try {
     const response = await fetch(URL, {

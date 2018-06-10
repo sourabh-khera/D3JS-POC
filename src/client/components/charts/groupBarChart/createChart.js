@@ -21,7 +21,9 @@ const createChart = (height, width, margin, d3, Transactions, node) => {
     .style('display', 'inline-block')
     .style('padding', '10px')
     .style('background-color', 'rgba(0,0,0,0.5)')
-    .style('color', 'white');
+    .style('color', 'white')
+    .style('font-size', '11px');
+
 
   const x0 = d3.scaleBand()
     .rangeRound([0, width])

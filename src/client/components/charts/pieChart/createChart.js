@@ -29,7 +29,9 @@ const createChart = (height, width, margin, d3, channelTypeRevenues, node, radiu
     .style('display', 'inline-block')
     .style('padding', '10px')
     .style('background-color', 'rgba(0,0,0,0.5)')
-    .style('color', 'white');
+    .style('color', 'white')
+    .style('font-size', '11px');
+
 
   const g = svg.selectAll('.arc')
     .data(pie(channelTypeRevenues))
@@ -39,7 +41,7 @@ const createChart = (height, width, margin, d3, channelTypeRevenues, node, radiu
     .on('mouseover', d => {
       tooltip
         .style('opacity', 1)
-        .text(`NR = $${format(d.data.NetRevenue)}`);
+        .text(`NetRevenue = $${format(d.data.NetRevenue)}`);
     })
     .on('mousemove', () => {
       tooltip

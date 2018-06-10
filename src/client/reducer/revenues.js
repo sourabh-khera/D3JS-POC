@@ -7,6 +7,7 @@ import {
   ENABLE_DISABLE_SERVICE_TYPE_LOADER,
   ENABLE_DISABLE_CHANNEL_TYPE_LOADER,
   ENABLE_DISABLE_CITY_LOADER,
+  SAVE_DATE_OBJECT,
 } from '../constants';
 
 const initialState = {
@@ -19,6 +20,7 @@ const initialState = {
   showChannelTypeLoader: false,
   showCityLoader: false,
   Transactions: [],
+  dateObj: {},
 };
 
 const saveTotalRevenues = (state, { totalRevenues }) => ({ ...state, totalRevenues });
@@ -32,7 +34,6 @@ const saveServiceRevenues = (state, { serviceTypeRevenues }) => {
   const serviceType = keys.map(item => (
     { ServiceType: item, ...serviceTypeRevenues[item] }
   ));
-  console.log('serviceTypeObj', serviceTypeObj)
   return { ...state, serviceTypeRevenues: serviceType, Transactions: [...state.Transactions, serviceTypeObj] };
 };
 
@@ -45,7 +46,6 @@ const saveChannelRevenues = (state, { channelTypeRevenues }) => {
   const channelType = keys.map(item => (
     { ChannelType: item, ...channelTypeRevenues[item] }
   ));
-  console.log('channelTypeObj', channelTypeObj)
   return { ...state, channelTypeRevenues: channelType, Transactions: [...state.Transactions, channelTypeObj] };
 };
 
@@ -53,10 +53,12 @@ const saveChannelRevenues = (state, { channelTypeRevenues }) => {
 const saveCityRevenues = (state, { cityRevenues }) => {
   const revenues = { city: "cities", children: [] };
   for( let i in cityRevenues){
-      revenues.children.push({ city: `city${i}`, children: [{ city: i, grossRevenue: cityRevenues[i] }] });
+    revenues.children.push({ city: `city${i}`, children: [{ city: i, grossRevenue: cityRevenues[i] }] });
   };
   return { ...state, cityRevenues: revenues };
 };
+
+const saveDateObj = (state, { dateObj }) => ({ ...state, dateObj });
 
 const showHideLoader = (
   state,
@@ -97,6 +99,8 @@ const revenues = (state = initialState, action) => {
     return showHideLoader(state, action, 'channel');
   case ENABLE_DISABLE_CITY_LOADER:
     return showHideLoader(state, action, 'city');
+  case SAVE_DATE_OBJECT:
+    return saveDateObj(state, action);
   default: return state;
   }
 };

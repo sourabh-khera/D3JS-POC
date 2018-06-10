@@ -30,7 +30,9 @@ const createChart = (height, width, margin, d3, revenueCsv, node, radius) => {
     .style('display', 'inline-block')
     .style('padding', '10px')
     .style('background-color', 'rgba(0,0,0,0.5)')
-    .style('color', 'white');
+    .style('color', 'white')
+    .style('font-size', '11px');
+
   const leftArc = d3.arc()
     .innerRadius(radius - -10)
     .outerRadius(radius - -10);
@@ -47,7 +49,7 @@ const createChart = (height, width, margin, d3, revenueCsv, node, radius) => {
     .on('mouseover', d => {
       tooltip
         .style('opacity', 1)
-        .text(`GR = $${format(d.data.amount)}`);
+        .text(`GrossRevenue = $${format(d.data.amount)}`);
     })
     .on('mousemove', () => {
       tooltip

@@ -1,8 +1,9 @@
 const PythonShell = require('python-shell');
 
-exports.getSalesRevenues = () => (
+
+exports.getSalesRevenues = dateObj => (
   new Promise((resolve, reject) => {
-    PythonShell.run('./src/server/py/calc_salesRevenues.py', (err, data) => {
+    PythonShell.run('./src/server/py/calc_salesRevenues.py', { args: [dateObj] }, (err, data) => {
       if (err) {
         reject(err);
       }

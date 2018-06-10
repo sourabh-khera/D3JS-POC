@@ -1,19 +1,19 @@
-.treeMapHeading {
+.lineHeading {
   font-family: 'Roboto Mono', monospace;
   color: #99816b;
   font-size: 20px;
   letter-spacing: -2.1px;
 }
 
-.treeMapContainer {
-  width: 500px;
-  float: left;
+.lineContainer {
+  margin-left: 80px;
   padding-top: 40px;
-  margin-left: 200px;
+  float: left;
   position: relative;
-  min-height: 380px;
+  min-height: 320px;
+  width: 500px;
 }
-.treeMapLoaderContainer{
+.lineLoaderContainer{
   position: absolute;
   top: 0;
   left: 0;
@@ -22,8 +22,4 @@
   margin: auto;
   height: 60px;
   width: 60px;
-}
-
-svg {
-  font: 10px sans-serif;
 }
