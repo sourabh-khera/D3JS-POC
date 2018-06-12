@@ -2,7 +2,7 @@
    font-size: 38px;
    margin: 0;
   -webkit-font-smoothing: antialiased;
-   color: #4676ae;
+   color: #1f78b5;
    font-weight: 400;
    letter-spacing: -2.1px;
    text-align: center;
@@ -10,7 +10,7 @@
 
 .title {
   margin: 0 0 10px;
-  color: #99816b;
+  color: #ffffff;
   text-align: center;
 }
 

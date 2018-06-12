@@ -5,8 +5,8 @@ import json
 import os
 import sys
 
-dateObj=sys.argv[1]
-
+j = sys.argv[1]
+dateObj = json.loads(j);
 
 def createConnection():
      hostUrl = os.environ.get('HIVEHOSTURL');
@@ -14,10 +14,14 @@ def createConnection():
      return conn;
 
 def getDataframe():
-     conn = createConnection();
-     df = pd.read_sql_query("select * from sales_data_leisure_view", conn);
-     return df;
+     conn = createConnection()
+     df = pd.read_sql_query('select * from sales_data_leisure_view', conn);
 
+     if dateObj['dateRange'] == {}:
+        return df
+     else:
+         df = df[(df['sales_data_leisure_view.transaction_date'] >= dateObj['dateRange']['fromDate']) & (df['sales_data_leisure_view.transaction_date'] <= dateObj['dateRange']['toDate'])]
+         return df
 
 def calculateSalesRevenues():
      # fetch all records

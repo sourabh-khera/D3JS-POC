@@ -4,6 +4,7 @@ import {
   SAVE_CHANNEL_BASED_REVENUES,
   SAVE_SERVICE_BASED_REVENUES,
   SAVE_DATE_OBJECT,
+  CLEAR_DATE_OBJECT,
 } from '../constants';
 
 export const saveSalesTotalRevenues = totalRevenues => (
@@ -18,7 +19,9 @@ export const saveChannelBasedRevenues = channelTypeRevenues => (
 export const saveCityBasedRevenues = cityRevenues => (
   { type: SAVE_CITY_BASED_REVENUES, cityRevenues }
 );
-
 export const saveDateObj = dateObj => (
   { type: SAVE_DATE_OBJECT, dateObj }
+);
+export const clearDateObject = () => (
+  { type: CLEAR_DATE_OBJECT }
 );

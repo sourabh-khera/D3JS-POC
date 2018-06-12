@@ -5,7 +5,8 @@ const revenueController = require('../controller/revenues');
 module.exports = app => {
   app.use(cors());
   app.get('/calculateTotalSalesRevenues', (req, res) => {
-    revenueController.getSalesRevenues(req.query.date)
+    const dateObj = JSON.parse(req.query.date);
+    revenueController.getSalesRevenues(dateObj)
       .then(data => res.send(data))
       .catch(err => console.log(err));
   });

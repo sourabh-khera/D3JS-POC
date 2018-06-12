@@ -81,6 +81,7 @@ const createChart = (height, width, margin, d3, channelTypeRevenues, node, radiu
 
   legend.append('text')
     .attr('x', width - 4)
+    .attr('fill', 'white')
     .attr('y', 9.5)
     .attr('dy', '0.32em')
     .text(d => d.ChannelType);

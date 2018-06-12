@@ -36,7 +36,7 @@ const createChart = (height, width, margin, d3, Transactions, node) => {
     .rangeRound([height, 0]);
 
   const z = d3.scaleOrdinal()
-    .range(['#98abc5', '#8a89a6', '#7b6888', '#6b486b', '#a05d56', '#d0743c', '#ff8c00']);
+    .range(['#c86677', '#6ecf74', '#f6bf83', '#6b486b', '#a05d56', '#d0743c', '#ff8c00']);
 
   x0.domain(Transactions.map(d => d.type));
   x1.domain(keys).rangeRound([1, x0.bandwidth()]);
@@ -95,9 +95,9 @@ const createChart = (height, width, margin, d3, Transactions, node) => {
     .attr('x', 20)
     .attr('y', y(y.ticks().pop()) - 15)
     .attr('dy', '0.32em')
-    .attr('fill', '#000')
-    .attr('font-weight', 'bold')
+    .attr('fill', 'white')
     .attr('text-anchor', 'start')
+    .style('font', 'sans-serif')
     .text('Transactions');
 
   const legend = svg.append('g')
@@ -121,6 +121,7 @@ const createChart = (height, width, margin, d3, Transactions, node) => {
     .attr('x', width - 4)
     .attr('y', 9.5)
     .attr('dy', '0.32em')
+    .attr('fill', 'white')
     .text(d => d);
 };
 

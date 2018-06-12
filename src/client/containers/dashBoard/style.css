@@ -1,5 +1,4 @@
 .displayRevenueContainer {
-  display: flex;
   margin-top: 40px;
   font-family: 'Roboto Mono', monospace;
 }
@@ -13,8 +12,11 @@
   height: 60px;
   width: 60px;
 }
-.clearFix {
+.clearFix:after {
   clear: both;
   content: '';
   display: table;
+}
+.dashBoardContainer {
+  background-color: #2b3e4f
 }

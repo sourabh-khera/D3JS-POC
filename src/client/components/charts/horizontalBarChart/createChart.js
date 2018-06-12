@@ -2,7 +2,7 @@
 const createChart = (height, width, margin, d3, serviceTypeRevenues, node) => {
   const xScale = d3.scaleLinear().rangeRound([0, width]);
   const yScale = d3.scaleBand().rangeRound([0, height]).padding(0.1);
-  const color = d3.scaleOrdinal().range(['#4676ae', '#c86677']);
+  const color = d3.scaleOrdinal().range(['#1f78b5', '#c86677']);
   const xAxis = d3.axisBottom(xScale);
   const yAxis = d3.axisLeft(yScale);
   const svgNode = node;
@@ -88,6 +88,7 @@ const createChart = (height, width, margin, d3, serviceTypeRevenues, node) => {
 
   legend.append('text')
     .attr('x', width - 4)
+    .attr('fill', 'white')
     .attr('y', 9.5)
     .attr('dy', '0.32em')
     .text(d => d);

@@ -16,7 +16,7 @@ const createChart = (height, width, margin, d3, revenueCsv, node, radius) => {
     .value(d => (d.amount));
 
   const arcColor = d3.scaleOrdinal()
-    .range(['#4676ae', '#c86677']);
+    .range(['#1f78b5', '#c86677']);
 
   const pieTween = b => {
     b.innerRadius = 0;
@@ -74,6 +74,6 @@ const createChart = (height, width, margin, d3, revenueCsv, node, radius) => {
     .attr('dy', '.35em')
     .style('text-anchor', 'middle')
     .text(d => (d.data.revenueType))
-    .attr('fill', 'black');
+    .attr('fill', 'white');
 };
 export default createChart;

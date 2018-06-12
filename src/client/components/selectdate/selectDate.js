@@ -28,7 +28,7 @@ class Date extends Component {
         <input type="date" id="from-Date" onChange={this.handleChange} name="fromDate" />
         <span className="toDate">To: </span>
         <input type="date" id="to-Date" onChange={this.handleChange} name="toDate" />
-        <button className="submit" disabled={enableOrDisable} >
+        <button className="submit" disabled={enableOrDisable} onClick={this.handleSubmit} >
         Submit
         </button>
       </div>

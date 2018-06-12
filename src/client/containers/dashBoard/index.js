@@ -29,11 +29,24 @@ class DashBoard extends Component {
       fetchServiceBasedRevenues,
       dateObj,
     } = this.props;
-
     fetchTotalRevenues(dateObj);
     fetchServiceBasedRevenues(dateObj);
     fetchChannelBasedRevenues(dateObj);
     fetchCityBasedRevenues(dateObj);
+  }
+  componentWillReceiveProps(nextProps) {
+    if (Object.keys(nextProps.dateObj).length) {
+      const {
+        fetchTotalRevenues,
+        fetchCityBasedRevenues,
+        fetchChannelBasedRevenues,
+        fetchServiceBasedRevenues,
+      } = this.props;
+      fetchTotalRevenues(nextProps.dateObj);
+      // fetchServiceBasedRevenues(dateObj);
+      // fetchChannelBasedRevenues(dateObj);
+      // fetchCityBasedRevenues(dateObj);
+    }
   }
   render() {
     const { totalRevenues, showLoader } = this.props;

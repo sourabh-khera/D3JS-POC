@@ -71,6 +71,7 @@ const createChart = (height, width, margin, d3, channelTypeRevenues, node) => {
 
   legend.append('text')
     .attr('x', width - 4)
+    .attr('fill', 'white')
     .attr('y', 9.5)
     .attr('dy', '0.32em')
     .text(d => d.ChannelType);
@@ -87,7 +88,7 @@ const createChart = (height, width, margin, d3, channelTypeRevenues, node) => {
     .on('mouseover', d => {
       tooltip
         .style('opacity', 1)
-        .text(`${d.ChannelType} = ${format(d.GrossRevenue)}`);
+        .text(`${d.ChannelType} = $${format(d.GrossRevenue)}`);
     })
     .on('mousemove', () => {
       tooltip

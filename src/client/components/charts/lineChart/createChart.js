@@ -15,7 +15,7 @@ const createChart = (height, width, margin, d3, channelTypeRevenues, node) => {
     .style('padding', '10px')
     .style('background-color', 'rgba(0,0,0,0.5)')
     .style('color', 'white')
-    .style('font-size', '9px');
+    .style('font-size', '11px');
   const format = d3.format(',d');
 
   yScale.domain([0, d3.max(channelTypeRevenues, d => d.NetRevenue)]);
@@ -30,6 +30,7 @@ const createChart = (height, width, margin, d3, channelTypeRevenues, node) => {
     .enter()
     .append('circle')
     .attr('r', 3.5)
+    .attr('fill', 'white')
     .attr('cx', d => xScale(d.ChannelType))
     .attr('cy', d => yScale(d.NetRevenue))
     .on('mouseover', d => {
@@ -49,21 +50,24 @@ const createChart = (height, width, margin, d3, channelTypeRevenues, node) => {
 
   svg.append('g')
     .attr('transform', `translate(0, ${height})`)
+    .attr('class', 'axis')
     .call(d3.axisBottom(xScale));
   svg.append('g')
+    .attr('class', 'axis')
     .call(d3.axisLeft(yScale).ticks(null, 's'))
     .append('text')
-    .attr('fill', '#000')
+    .attr('fill', 'white')
     .attr('transform', 'rotate(-90)')
     .attr('y', 6)
     .attr('dy', '0.71em')
     .attr('text-anchor', 'end')
+    .style('font', 'sans-serif')
     .text('Net Revenue');
 
   svg.append('path')
     .datum(channelTypeRevenues)
     .attr('fill', 'none')
-    .attr('stroke', '#98abc5')
+    .attr('stroke', '#1f78b5')
     .attr('stroke-linejoin', 'round')
     .attr('stroke-linecap', 'round')
     .attr('stroke-width', 1.5)

@@ -5,6 +5,7 @@ import {
   saveServiceBasedRevenues,
   saveChannelBasedRevenues,
   saveCityBasedRevenues,
+  clearDateObject,
 } from '../revenues';
 import {
   enableDisableLoader,
@@ -15,7 +16,7 @@ import {
 
 export const getTotalRevenues = dateObj => async dispatch => {
   const { url, method } = API.ENDPOINT.REVENUES.TOTAL_SALES_REVENUES;
-  const URL = `${API.ENDPOINT.DOMAIN}://${API.ENDPOINT.BASE}:${API.ENDPOINT.PORT}${url}/?date=${dateObj}`;
+  const URL = `${API.ENDPOINT.DOMAIN}://${API.ENDPOINT.BASE}:${API.ENDPOINT.PORT}${url}/?date=${JSON.stringify(dateObj)}`;
   dispatch(enableDisableLoader(true));
   try {
     const response = await fetch(URL, {
@@ -25,6 +26,9 @@ export const getTotalRevenues = dateObj => async dispatch => {
     const result = await response.json();
     const totalRevenues = JSON.parse(result[0]);
     dispatch(enableDisableLoader(false));
+    if (Object.keys(dateObj).length) {
+      dispatch(clearDateObject());
+    }
     dispatch(saveSalesTotalRevenues(totalRevenues));
   } catch (error) {
     console.log(error);

@@ -1,6 +1,6 @@
 .groupBarHeading {
   font-family: 'Roboto Mono', monospace;
-  color: #99816b;
+  color: #ffffff;
   font-size: 20px;
   letter-spacing: -2.1px;
 }
@@ -22,4 +22,14 @@
   margin: auto;
   height: 60px;
   width: 60px;
+}
+
+.axis path{
+  stroke: white;
+}
+.axis text{
+  fill: white;
+}
+.axis line{
+  stroke: white;
 }
