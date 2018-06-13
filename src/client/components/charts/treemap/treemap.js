@@ -37,7 +37,7 @@ class TreeMap extends Component {
       (
         <div className="treeMapLoaderContainer">
           <BounceLoader
-            color="#123abc"
+            color="#ffffff"
             loading
           />
         </div>

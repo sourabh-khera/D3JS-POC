@@ -31,7 +31,7 @@ class LineChart extends Component {
       (
         <div className="lineLoaderContainer">
           <BounceLoader
-            color="#123abc"
+            color="#ffffff"
             loading
           />
         </div>

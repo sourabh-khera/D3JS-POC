@@ -1,6 +1,5 @@
 const PythonShell = require('python-shell');
 
-
 exports.getSalesRevenues = dateObj => (
   new Promise((resolve, reject) => {
     const date = `{"dateRange":${JSON.stringify(dateObj)}}`;
@@ -13,9 +12,10 @@ exports.getSalesRevenues = dateObj => (
   })
 );
 
-exports.getServiceBasedRevenues = () => (
+exports.getServiceBasedRevenues = dateObj => (
   new Promise((resolve, reject) => {
-    PythonShell.run('./src/server/py/calc_serviceBasedRevenues.py', (err, data) => {
+    const date = `{"dateRange":${JSON.stringify(dateObj)}}`;
+    PythonShell.run('./src/server/py/calc_serviceBasedRevenues.py', { args: date }, (err, data) => {
       if (err) {
         reject(err);
       }
@@ -24,9 +24,10 @@ exports.getServiceBasedRevenues = () => (
   })
 );
 
-exports.getChannelBasedRevenues = () => (
+exports.getChannelBasedRevenues = dateObj => (
   new Promise((resolve, reject) => {
-    PythonShell.run('./src/server/py/calc_channelBasedRevenues.py', (err, data) => {
+    const date = `{"dateRange":${JSON.stringify(dateObj)}}`;
+    PythonShell.run('./src/server/py/calc_channelBasedRevenues.py', { args: date }, (err, data) => {
       if (err) {
         reject(err);
       }
@@ -36,9 +37,10 @@ exports.getChannelBasedRevenues = () => (
 );
 
 
-exports.getCityBasedRevenues = () => (
+exports.getCityBasedRevenues = dateObj => (
   new Promise((resolve, reject) => {
-    PythonShell.run('./src/server/py/calc_cityBasedRevenues.py', (err, data) => {
+    const date = `{"dateRange":${JSON.stringify(dateObj)}}`;
+    PythonShell.run('./src/server/py/calc_cityBasedRevenues.py', { args: date }, (err, data) => {
       if (err) {
         reject(err);
       }

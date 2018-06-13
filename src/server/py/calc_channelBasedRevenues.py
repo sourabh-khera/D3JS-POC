@@ -3,6 +3,10 @@ import pandas as pd
 import numpy as np
 import json
 import os
+import sys
+
+j = sys.argv[1]
+dateObj = json.loads(j);
 
 def createConnection():
      hostUrl = os.environ.get('HIVEHOSTURL');
@@ -10,9 +14,14 @@ def createConnection():
      return conn;
 
 def getDataframe():
-     conn = createConnection();
+     conn = createConnection()
      df = pd.read_sql_query('select * from sales_data_leisure_view', conn);
-     return df;
+
+     if dateObj['dateRange'] == {}:
+        return df
+     else:
+         df = df[(df['sales_data_leisure_view.transaction_date'] >= dateObj['dateRange']['fromDate']) & (df['sales_data_leisure_view.transaction_date'] <= dateObj['dateRange']['toDate'])]
+         return df
 
 def calculateAverageGR(x, df):
     return df.groupby('sales_data_leisure_view.channel')['sales_data_leisure_view.txn_amount'].mean()[x];

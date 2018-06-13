@@ -30,7 +30,7 @@ class VerticalBarChart extends Component {
       (
         <div className="verticalLoaderContainer">
           <BounceLoader
-            color="#123abc"
+            color="#ffffff"
             loading
           />
         </div>

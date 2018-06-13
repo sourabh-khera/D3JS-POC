@@ -32,7 +32,7 @@ class PieChart extends Component {
       (
         <div className="pieLoaderContainer">
           <BounceLoader
-            color="#123abc"
+            color="#ffffff"
             loading
           />
         </div>

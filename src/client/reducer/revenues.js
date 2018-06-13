@@ -8,7 +8,7 @@ import {
   ENABLE_DISABLE_CHANNEL_TYPE_LOADER,
   ENABLE_DISABLE_CITY_LOADER,
   SAVE_DATE_OBJECT,
-  CLEAR_DATE_OBJECT,
+  CLEAR_TRANSACTIONS,
 } from '../constants';
 
 const initialState = {
@@ -61,7 +61,14 @@ const saveCityRevenues = (state, { cityRevenues }) => {
 
 const saveDateObj = (state, { dateObj }) => ({ ...state, dateObj });
 
-const clearDateObj = state => ({ ...state, dateObj: {} });
+const clearTransactions = state => ({
+  ...state,
+  Transactions: [],
+  cityRevenues: {},
+  serviceTypeRevenues: [],
+  channelTypeRevenues: [],
+  totalRevenues: {},
+});
 
 
 const showHideLoader = (
@@ -105,8 +112,8 @@ const revenues = (state = initialState, action) => {
     return showHideLoader(state, action, 'city');
   case SAVE_DATE_OBJECT:
     return saveDateObj(state, action);
-  case CLEAR_DATE_OBJECT:
-    return clearDateObj(state);
+  case CLEAR_TRANSACTIONS:
+    return clearTransactions(state);
   default: return state;
   }
 };

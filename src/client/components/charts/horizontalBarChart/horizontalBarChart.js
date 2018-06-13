@@ -30,7 +30,7 @@ class HorizontalBarChart extends Component {
       (
         <div className="horizontalLoaderContainer">
           <BounceLoader
-            color="#123abc"
+            color="#ffffff"
             loading
           />
         </div>

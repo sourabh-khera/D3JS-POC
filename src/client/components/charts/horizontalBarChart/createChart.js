@@ -62,7 +62,12 @@ const createChart = (height, width, margin, d3, serviceTypeRevenues, node) => {
   svg.append('g')
     .attr('class', 'axis axis--x')
     .attr('transform', `translate(0, ${height + 5})`)
-    .call(xAxis.ticks(null, 's'));
+    .call(xAxis.ticks(null, 's'))
+    .selectAll('text')
+    .attr('transform', 'rotate(-60)')
+    .attr('dx', '-.8em')
+    .attr('dy', '.25em')
+    .attr('text-anchor', 'end');
 
   svg.append('g')
     .attr('class', 'axis axis--y')

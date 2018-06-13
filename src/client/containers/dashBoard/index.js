@@ -10,7 +10,9 @@ import {
   getChannelBasedRevenues,
   getServiceBasedRevenues,
 } from '../../actions/asyncAction/revenues';
+import { clearTransactions } from '../../actions/revenues';
 import './style.css';
+import isEqual from 'lodash/isEqual';
 import DonutChart from '../../components/charts/donutChart/donutChart';
 import HorizontalBarChart from '../../components/charts/horizontalBarChart/horizontalBarChart';
 import PieChart from '../../components/charts/pieChart/pieChart';
@@ -21,6 +23,12 @@ import Date from '../../components/selectdate/selectDate';
 import LineChart from '../../components/charts/lineChart/lineChart';
 
 class DashBoard extends Component {
+  constructor() {
+    super();
+    this.state = {
+      dateObject: {},
+    };
+  }
   componentDidMount() {
     const {
       fetchTotalRevenues,
@@ -35,17 +43,21 @@ class DashBoard extends Component {
     fetchCityBasedRevenues(dateObj);
   }
   componentWillReceiveProps(nextProps) {
-    if (Object.keys(nextProps.dateObj).length) {
-      const {
-        fetchTotalRevenues,
-        fetchCityBasedRevenues,
-        fetchChannelBasedRevenues,
-        fetchServiceBasedRevenues,
-      } = this.props;
+    const {
+      fetchTotalRevenues,
+      fetchCityBasedRevenues,
+      fetchChannelBasedRevenues,
+      fetchServiceBasedRevenues,
+      emptyTransactions,
+    } = this.props;
+    const { dateObject } = this.state;
+    if (!(isEqual(dateObject, nextProps.dateObj))) {
+      emptyTransactions();
       fetchTotalRevenues(nextProps.dateObj);
-      // fetchServiceBasedRevenues(dateObj);
-      // fetchChannelBasedRevenues(dateObj);
-      // fetchCityBasedRevenues(dateObj);
+      fetchServiceBasedRevenues(nextProps.dateObj);
+      fetchChannelBasedRevenues(nextProps.dateObj);
+      fetchCityBasedRevenues(nextProps.dateObj);
+      this.setState({ dateObject: nextProps.dateObj });
     }
   }
   render() {
@@ -120,6 +132,7 @@ const mapDispatchToProps = dispatch => ({
   fetchServiceBasedRevenues: dateObj => dispatch(getServiceBasedRevenues(dateObj)),
   fetchChannelBasedRevenues: dateObj => dispatch(getChannelBasedRevenues(dateObj)),
   fetchCityBasedRevenues: dateObj => dispatch(getCityBasedRevenues(dateObj)),
+  emptyTransactions: () => dispatch(clearTransactions()),
 });
 
 DashBoard.propTypes = {
@@ -130,5 +143,6 @@ DashBoard.propTypes = {
   fetchCityBasedRevenues: PropTypes.func.isRequired,
   showLoader: PropTypes.bool.isRequired,
   dateObj: PropTypes.object,
+  emptyTransactions: PropTypes.func.isRequired,
 };
 export default connect(mapStateToProps, mapDispatchToProps)(DashBoard);

@@ -34,7 +34,7 @@ class GroupBarChart extends Component {
       (
         <div className="groupLoaderContainer">
           <BounceLoader
-            color="#123abc"
+            color="#ffffff"
             loading
           />
         </div>

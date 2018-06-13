@@ -12,19 +12,22 @@ module.exports = app => {
   });
 
   app.get('/calculateServiceBasedRevenues', (req, res) => {
-    revenueController.getServiceBasedRevenues()
+    const dateObj = JSON.parse(req.query.date);
+    revenueController.getServiceBasedRevenues(dateObj)
       .then(data => res.send(data))
       .catch(err => console.log(err));
   });
 
   app.get('/calculateChannelBasedRevenues', (req, res) => {
-    revenueController.getChannelBasedRevenues()
+    const dateObj = JSON.parse(req.query.date);
+    revenueController.getChannelBasedRevenues(dateObj)
       .then(data => res.send(data))
       .catch(err => console.log(err));
   });
 
   app.get('/calculateCityBasedRevenues', (req, res) => {
-    revenueController.getCityBasedRevenues()
+    const dateObj = JSON.parse(req.query.date);
+    revenueController.getCityBasedRevenues(dateObj)
       .then(data => res.send(data))
       .catch(err => console.log(err));
   });
