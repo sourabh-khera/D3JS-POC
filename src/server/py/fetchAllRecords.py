@@ -3,6 +3,16 @@ import pandas as pd
 import json
 import os
 import redis
+import pickle
+
+
+def checkForExistingKey():
+    r = redis.StrictRedis(host='localhost', port=6379, db=0);
+    exist = r.exists('totalRecords');
+    if exist == 1:
+       print('true');
+    else:
+        getDataframe();
 
 
 
@@ -14,9 +24,10 @@ def createConnection():
 def getDataframe():
      conn = createConnection()
      df = pd.read_sql_query('select * from sales_data_leisure_view', conn);
-     r = redis.Redis(host='localhost', port=6379, db=0);
-     r.set('totalRecords', df);
-     r.expire('totalRecords',300)
-     print(r.get('totalRecords'));
+     r = redis.StrictRedis(host='localhost', port=6379, db=0);
+     pickled_object = pickle.dumps(df);
+     r.set('totalRecords', pickled_object);
+     r.expire('totalRecords',1200)
+     print('true');
 
-getDataframe();
+checkForExistingKey();

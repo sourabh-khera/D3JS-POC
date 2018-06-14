@@ -48,3 +48,14 @@ exports.getCityBasedRevenues = dateObj => (
     });
   })
 );
+
+exports.getAllRecords = () => (
+  new Promise((resolve, reject) => {
+    PythonShell.run('./src/server/py/fetchAllRecords.py', (err, data) => {
+      if (err) {
+        reject(err);
+      }
+      resolve(data);
+    });
+  })
+);

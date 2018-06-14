@@ -4,18 +4,17 @@ import numpy as np
 import json
 import os
 import sys
+import redis
+import pickle
 
 j = sys.argv[1]
 dateObj = json.loads(j);
 
-def createConnection():
-     hostUrl = os.environ.get('HIVEHOSTURL');
-     conn = hive.Connection(host=hostUrl or '52.48.118.224', auth="CUSTOM", username='hive', password="pvXxHTsdqrt8", port=10000, database='tapro_atg');
-     return conn;
 
 def getDataframe():
-     conn = createConnection()
-     df = pd.read_sql_query('select * from sales_data_leisure_view', conn);
+     r = redis.StrictRedis(host='localhost', port=6379, db=0);
+     df = pickle.loads(r.get('totalRecords'))
+     return df;
 
      if dateObj['dateRange'] == {}:
         return df
