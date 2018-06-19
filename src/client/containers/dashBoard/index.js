@@ -22,7 +22,7 @@ import GroupBarChart from '../../components/charts/groupBarChart/groupBarChart';
 import Date from '../../components/selectdate/selectDate';
 import LineChart from '../../components/charts/lineChart/lineChart';
 
-class DashBoard extends Component {
+class Dash extends Component {
   constructor() {
     super();
     this.state = {
@@ -145,4 +145,4 @@ DashBoard.propTypes = {
   dateObj: PropTypes.object,
   emptyTransactions: PropTypes.func.isRequired,
 };
-export default connect(mapStateToProps, mapDispatchToProps)(DashBoard);
+export default connect(mapStateToProps, mapDispatchToProps)(Dash);
