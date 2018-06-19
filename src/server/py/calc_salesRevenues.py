@@ -13,8 +13,7 @@ dateObj = json.loads(j);
 
 def getDataframe():
      r = redis.StrictRedis(host='localhost', port=6379, db=0);
-     df = pickle.loads(r.get('totalRecords'))
-     return df;
+     df = pickle.loads(r.get('totalRecords'));
 
      if dateObj['dateRange'] == {}:
         return df

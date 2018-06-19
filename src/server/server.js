@@ -3,8 +3,8 @@ const webpack = require('webpack');
 const path = require('path');
 const webpackconfig = require('../../webpack.config');
 const webpackMiddleware = require('webpack-dev-middleware');
-
 const compiler = webpack(webpackconfig);
+// require('./services/checkForUpdate_Job');
 const routes = require('./routes');
 
 const app = express();

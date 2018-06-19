@@ -1,6 +1,7 @@
 const cors = require('cors');
 const revenueController = require('../controller/revenues');
 
+
 const fetchAllRecords = (req, res, next) => {
   revenueController.getAllRecords()
     .then(response => {

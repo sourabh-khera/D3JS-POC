@@ -59,3 +59,14 @@ exports.getAllRecords = () => (
     });
   })
 );
+
+exports.checkForAllUpdatedRecords = () => (
+  new Promise((resolve, reject) => {
+    PythonShell.run('./src/server/py/checkForUpdatedData.py', (err, data) => {
+      if (err) {
+        reject(err);
+      }
+      resolve(data);
+    });
+  })
+);

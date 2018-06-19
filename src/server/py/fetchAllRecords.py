@@ -27,7 +27,6 @@ def getDataframe():
      r = redis.StrictRedis(host='localhost', port=6379, db=0);
      pickled_object = pickle.dumps(df);
      r.set('totalRecords', pickled_object);
-     r.expire('totalRecords',1200)
      print('true');
 
 checkForExistingKey();

@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import CountUp from 'react-countup';
 import PropTypes from 'prop-types';
+import isEqual from 'lodash/isEqual';
 import { RingLoader } from 'react-spinners';
 import DisplayRevenue from '../../components/displayRevenues/displayRevenue';
 import {
@@ -12,7 +13,6 @@ import {
 } from '../../actions/asyncAction/revenues';
 import { clearTransactions } from '../../actions/revenues';
 import './style.css';
-import isEqual from 'lodash/isEqual';
 import DonutChart from '../../components/charts/donutChart/donutChart';
 import HorizontalBarChart from '../../components/charts/horizontalBarChart/horizontalBarChart';
 import PieChart from '../../components/charts/pieChart/pieChart';
