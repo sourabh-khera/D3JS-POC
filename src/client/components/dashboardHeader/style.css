@@ -1,0 +1,44 @@
+.dashBoardHeaderContainer {
+  background-color: #3a4148
+}
+
+
+.dashBoardHeader {
+  font-family: 'Rubik', sans-serif;
+  border-bottom: 1px solid black;
+  margin: 0px;
+}
+
+.title {
+  color: #6cddfc;
+  font-weight: 500;
+  font-size: 18px;
+  margin-left: 30px;
+  margin-right: 45px;
+}
+
+.leftHeader {
+  float: left;
+}
+.rightHeader {
+  float: right;
+}
+.menuIcon {
+  color: #bcc2c8;
+  font-size: 17px;
+}
+
+.commonLi {
+  color: #bcc2c8;
+  margin-right: 10px;
+}
+
+.list-container {
+  margin-top: 12px;
+}
+
+.avatar {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+}
