@@ -1,0 +1,39 @@
+.menuItemsFont {
+  font-family: 'Rubik', sans-serif;
+  font-weight: 500;
+  font-size: 13px;
+  color: #bcc2c8;
+}
+.menuLeftIconContainer {
+  float: right;
+}
+
+.changedBackgroundItemParent {
+  padding: 10px;
+  clear:both;
+  content: '';
+  overflow: hidden;
+  background-color: #2f343b;
+}
+.menuItemContainer {
+  float: left;
+}
+
+.menuItemsParentContainer {
+  padding: 10px;
+  clear:both;
+  content: '';
+  overflow: hidden;
+}
+.commonIcons {
+  color: #bcc2c8;
+  margin-right: 10px;
+  font-size: 12px;
+}
+
+.menuItemsParentContainer:hover {
+  background-color: #000;
+}
+.changedBackgroundItemParent:hover {
+  background-color: #000;
+}

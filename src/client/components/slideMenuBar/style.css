@@ -25,28 +25,12 @@
   font-size: 12px;
 }
 .profileContainer {
-  padding-bottom: 20px;
-}
-.menuItemsParentContainer {
-  padding-bottom: 50px;
-  clear:both;
-  content: '';
+  padding: 10px;
 }
 
 .formPadding {
-  padding-bottom: 40px;
+  padding: 10px 10px 40px 10px;
 }
-
-.menuItemsFont {
-  font-family: 'Rubik', sans-serif;
-  font-weight: 500;
-  font-size: 13px;
-  color: #bcc2c8;
-}
-.menuLeftIconContainer {
-  float: right;
-}
-
-.menuItemContainer {
-  float: left;
+.filterTypes {
+  background-color: #2f343b;
 }

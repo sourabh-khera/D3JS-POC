@@ -3,12 +3,13 @@ import { push as Menu } from 'react-burger-menu';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import avatar from '../../assets/images/avatar.jpg';
+import DisplayMenuItems from '../../components/menuItems/menuItems';
+import Date from '../selectdate/selectDate';
 import './style.css';
 
 const styles = {
   bmMenu: {
     background: '#3a4148',
-    padding: '2.5em 1.5em 0',
     fontSize: '1.15em',
   },
 
@@ -25,14 +26,49 @@ const styles = {
   bmBurgerBars: {
     display: 'none',
   },
+  bmBurgerButton: {
+    display: 'none',
+  },
 };
 
 class SlideMenuBar extends Component {
+  constructor() {
+    super();
+    this.state = {
+      toggle: false,
+      showLeftIcon: true,
+      openCalendar: false,
+    };
+  }
   handleStateChange = state => {
   console.log(state.isOpen);
   }
+  handleMenuClick = () => {
+    const { toggle, showLeftIcon } = this.state;
+    this.setState({ toggle: !toggle, showLeftIcon: !showLeftIcon });
+  }
+  handleFiltersClick = () => {
+    const { openCalendar } = this.state;
+    this.setState({ openCalendar: !openCalendar });
+  }
   render() {
     const { menuOpen } = this.props;
+    const { toggle, showLeftIcon, openCalendar } = this.state;
+    const renderCalendar = openCalendar ? <Date /> : null;
+    const renderFilterTypes = toggle ?
+      (
+        <div className="filterTypes">
+          <DisplayMenuItems
+            title="Date Range"
+            icon="glyphicon-calendar"
+            handleClick={this.handleFiltersClick}
+            showLeftIcon={showLeftIcon}
+          />
+          {renderCalendar}
+        </div>
+      )
+      : null;
+
     return (
       <div>
         <Menu
@@ -56,34 +92,12 @@ class SlideMenuBar extends Component {
               </div>
             </div>
           </form>
-          <div className="menuItemsParentContainer">
-            <div className="menuItemContainer">
-              <span className="glyphicon glyphicon-filter commonIcons" />
-              <span className="menuItemsFont">Filters</span>
-            </div>
-            <div className="menuLeftIconContainer">
-              <span className="glyphicon glyphicon-menu-left commonIcons" />
-            </div>
-          </div>
-          <div className="menuItemsParentContainer">
-            <div className="menuItemContainer">
-              <span className="glyphicon glyphicon-list-alt commonIcons" />
-              <span className="menuItemsFont">Reports</span>
-            </div>
-            <div className="menuLeftIconContainer">
-              <span className="glyphicon glyphicon-menu-left commonIcons" />
-            </div>
-          </div>
-          <div className="menuItemsParentContainer">
-            <div className="menuItemContainer">
-              <span className="glyphicon glyphicon-stats commonIcons" />
-              <span className="menuItemsFont">Charts</span>
-            </div>
-            <div className="menuLeftIconContainer">
-              <span className="glyphicon glyphicon-menu-left commonIcons" />
-            </div>
-          </div>
+          <DisplayMenuItems title="Filters" icon="glyphicon-filter" showLeftIcon={showLeftIcon} toggle={toggle} handleClick={this.handleMenuClick} />
+          { renderFilterTypes }
+          <DisplayMenuItems title="Reports" icon="glyphicon-list-alt" />
+          <DisplayMenuItems title="Charts" icon="glyphicon-stats" />
         </Menu>
+
       </div>
     );
   }

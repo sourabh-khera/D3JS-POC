@@ -3,6 +3,7 @@ import Header from '../../components/dashboardHeader/header';
 import SlideMenuBar from '../../components/slideMenuBar/slideMenuBar';
 
 export default class DashBoard extends Component {
+  state = {};
   render() {
     return (
       <div className="dasboardContainer">
