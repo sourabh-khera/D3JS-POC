@@ -38,22 +38,23 @@ class SlideMenuBar extends Component {
       toggle: false,
       showLeftIcon: true,
       openCalendar: false,
+      toggleFilterTypes: false,
     };
   }
   handleStateChange = state => {
   console.log(state.isOpen);
   }
   handleMenuClick = () => {
-    const { toggle, showLeftIcon } = this.state;
-    this.setState({ toggle: !toggle, showLeftIcon: !showLeftIcon });
+    const { toggle } = this.state;
+    this.setState({ toggle: !toggle });
   }
   handleFiltersClick = () => {
-    const { openCalendar } = this.state;
-    this.setState({ openCalendar: !openCalendar });
+    const { openCalendar, toggleFilterTypes } = this.state;
+    this.setState({ openCalendar: !openCalendar, toggleFilterTypes: !toggleFilterTypes });
   }
   render() {
     const { menuOpen } = this.props;
-    const { toggle, showLeftIcon, openCalendar } = this.state;
+    const { toggle, showLeftIcon, openCalendar, toggleFilterTypes } = this.state;
     const renderCalendar = openCalendar ? <Date /> : null;
     const renderFilterTypes = toggle ?
       (
@@ -62,7 +63,7 @@ class SlideMenuBar extends Component {
             title="Date Range"
             icon="glyphicon-calendar"
             handleClick={this.handleFiltersClick}
-            showLeftIcon={showLeftIcon}
+            toggleFilterTypes={toggleFilterTypes}
           />
           {renderCalendar}
         </div>

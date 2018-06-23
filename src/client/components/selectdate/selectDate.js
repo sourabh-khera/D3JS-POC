@@ -10,35 +10,40 @@ class Date extends Component {
   constructor() {
     super();
     this.state = {
-      fromDate: '',
-      toDate: '',
+      fromDate: null,
+      toDate: null,
     };
   }
-  handleChange = range => {
-  //  this.setState({ [e.target.name]: e.target.value });
-    console.log("range----", range);
+  handleFromChange = date => {
+    this.setState({ fromDate: date });
   }
-  handleSubmit = () => {
-    const { getDateObject } = this.props;
-    getDateObject(this.state);
+  handleToChange = date => {
+    this.setState({ toDate: date });
   }
   render() {
     const { fromDate, toDate } = this.state;
-    //    const enableOrDisable = fromDate && toDate !== '' ? false : true;
     return (
-      <div>
-        <DatePicker />
-        <div className="to-datepicker">to</div>
-        <DatePicker />
+      <div className="datepickerContainer">
+        <DatePicker
+          onChange={this.handleFromChange}
+          isClearable
+          placeholderText="Start-Date"
+          selected={fromDate}
+          dateFormat="YYYY-MM-DD"
+        />
+        <DatePicker
+          onChange={this.handleToChange}
+          isClearable
+          placeholderText="End-Date"
+          selected={toDate}
+          dateFormat="YYYY-MM-DD"
+        />
       </div>
 
 
     );
   }
 }
-Date.propTypes = {
-  getDateObject: PropTypes.func.isRequired,
-};
 const mapDispatchToProps = dispatch => ({
   getDateObject: dateObj => dispatch(saveDateObj(dateObj)),
 });

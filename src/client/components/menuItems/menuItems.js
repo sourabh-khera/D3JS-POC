@@ -4,6 +4,7 @@ import './style.css';
 
 const displayMenuItems = ({
   title, icon, handleClick, toggle, showLeftIcon,
+  toggleFilterTypes,
 }) =>
   (
     <div className={toggle ? 'changedBackgroundItemParent' : 'menuItemsParentContainer'} onClick={handleClick}>
@@ -12,14 +13,14 @@ const displayMenuItems = ({
         <span className="menuItemsFont">{title}</span>
       </div>
       {
-        showLeftIcon && !toggle ?
+        showLeftIcon && !toggle && !toggleFilterTypes ?
           <div className="menuLeftIconContainer">
             <span className="glyphicon glyphicon-menu-left commonIcons" />
           </div>
           : null
       }
       {
-        toggle ?
+        toggle || toggleFilterTypes ?
           <div className="menuLeftIconContainer">
             <span className="glyphicon glyphicon-menu-down commonIcons" />
           </div>
@@ -32,6 +33,7 @@ displayMenuItems.defaultProps = {
   handleClick: () => {},
   toggle: false,
   showLeftIcon: true,
+  toggleFilterTypes: false,
 };
 displayMenuItems.propTypes = {
   title: PropTypes.string.isRequired,
@@ -39,5 +41,6 @@ displayMenuItems.propTypes = {
   handleClick: PropTypes.func,
   toggle: PropTypes.bool,
   showLeftIcon: PropTypes.bool,
+  toggleFilterTypes: PropTypes.bool,
 };
 export default displayMenuItems;

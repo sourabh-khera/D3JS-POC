@@ -1,6 +1,7 @@
 .react-datepicker-wrapper {
   float: left;
-  padding: 2px 5px;
+  padding: 2px 5px 5px 5px;
+  background-color: #2f343b;
 }
 
 .react-datepicker-wrapper input[type="text"] {
@@ -9,10 +10,24 @@
   border: none;
   border-bottom: 2px solid #fff;
   outline: none;
+  font-size: 15px;
+  color: #fff;
 }
 
 
 .to-datepicker {
   float: left;
+  color: #fff;
+  background-color: #2f343b;
+  padding-bottom: 10px;
+}
+
+.datepickerContainer {
+  width: 100%;
+  overflow: hidden;
+}
+
+.react-datepicker-wrapper .react-datepicker__input-container input[type="text"] {
+  font-size: 13px;
   color: #fff;
 }
