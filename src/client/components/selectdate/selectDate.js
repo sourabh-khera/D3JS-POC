@@ -10,32 +10,34 @@ class Date extends Component {
   constructor() {
     super();
     this.state = {
-      fromDate: null,
-      toDate: null,
+      startDate: null,
+      endDate: null,
     };
   }
   handleFromChange = date => {
-    this.setState({ fromDate: date });
+    this.setState({ startDate: date });
+    const fromDate = date.format('YYYY-MM-DD');
   }
   handleToChange = date => {
-    this.setState({ toDate: date });
+    this.setState({ endDate: date });
+    const toDate = date.format('YYYY-MM-DD');
   }
   render() {
-    const { fromDate, toDate } = this.state;
+    const { startDate, endDate } = this.state;
     return (
       <div className="datepickerContainer">
         <DatePicker
           onChange={this.handleFromChange}
           isClearable
           placeholderText="Start-Date"
-          selected={fromDate}
+          selected={startDate}
           dateFormat="YYYY-MM-DD"
         />
         <DatePicker
           onChange={this.handleToChange}
           isClearable
           placeholderText="End-Date"
-          selected={toDate}
+          selected={endDate}
           dateFormat="YYYY-MM-DD"
         />
       </div>
