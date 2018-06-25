@@ -17,7 +17,7 @@ class Header extends Component {
         <div className="row dashBoardHeader">
           <div className="col-xs-12 col-md-6 col-sm-6">
             <ul className="list-inline list-container leftHeader">
-              <li className="title">ATG / DMAP</li>
+              <li className="headerTitle">ATG / DMAP</li>
               <li className="commonLi">
                 <span className="glyphicon glyphicon-menu-hamburger" onClick={this.handleHamburgerCLick} />
               </li>
@@ -25,8 +25,8 @@ class Header extends Component {
               <li className="commonLi">Dashboard</li>
             </ul>
           </div>
-          <div className="col-xs-12 col-md-6 col-sm-6">
-            <ul className="list-inline list-container rightHeader">
+          <div className="col-xs-12 col-md-6 col-sm-6 marginRightHeader">
+            <ul className="list-inline rightHeader">
               <li className="commonLi"><span className="glyphicon glyphicon-bell menuIcon" /></li>
               <li className="commonLi"><span className="glyphicon glyphicon-option-vertical menuIcon" /></li>
               <li className="commonLi"><img src={avatar} alt="can not load" className="avatar" /></li>

@@ -34,3 +34,7 @@
 .filterTypes {
   background-color: #2f343b;
 }
+.applyButton {
+  margin: 65px;
+  width: 110px;
+}

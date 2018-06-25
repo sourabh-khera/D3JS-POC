@@ -78,6 +78,8 @@ class SlideMenuBar extends Component {
           styles={styles}
           width={240}
           noOverlay
+          pageWrapId="page-wrap"
+          outerContainerId="outer-container"
         >
           <div className="profileContainer">
             <span><img src={avatar} alt="can not load" className="slidePanelProfileImage" /></span>
@@ -97,6 +99,7 @@ class SlideMenuBar extends Component {
           { renderFilterTypes }
           <DisplayMenuItems title="Reports" icon="glyphicon-list-alt" />
           <DisplayMenuItems title="Charts" icon="glyphicon-stats" />
+          <button type="button" className="btn btn-info btn-sm applyButton">Apply Filter</button>
         </Menu>
 
       </div>

@@ -9,7 +9,7 @@
   margin: 0px;
 }
 
-.title {
+.headerTitle {
   color: #6cddfc;
   font-weight: 500;
   font-size: 18px;
@@ -41,4 +41,38 @@
   width: 30px;
   height: 30px;
   border-radius: 50%;
+}
+.marginRightHeader {
+  margin-top: 10px;
+}
+
+@media only screen and (max-width: 468px) {
+  .headerTitle {
+    margin-left: 3px;
+    margin-right: -2px;
+  }
+  .rightHeader {
+    margin-left: 0px;
+  }
+}
+
+@media only screen and (max-width: 767px) {
+  .rightHeader{
+    float: left;
+    margin-left: 25px;
+  }
+  .marginRightHeader {
+    margin-top: 0px;
+  }
+
+}
+@media only screen and (min-width: 768px) {
+  .title {
+    margin-right: 20px;
+  }
+}
+@media only screen and (max-width: 1024px) {
+  .headerTitle {
+     margin-right: 15px;
+  }
 }

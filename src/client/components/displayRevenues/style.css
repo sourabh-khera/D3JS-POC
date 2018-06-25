@@ -1,20 +1,47 @@
-.totalRevenue {
-   font-size: 38px;
-   margin: 0;
-  -webkit-font-smoothing: antialiased;
-   color: #1f78b5;
-   font-weight: 400;
-   letter-spacing: -2.1px;
-   text-align: center;
+.revenuesContainer {
+  border-radius: 5px;
+  height: 100px;
 }
 
 .title {
-  margin: 0 0 10px;
-  color: #ffffff;
-  text-align: center;
+  color: #fff;
+  padding: 20px 15px 0px 15px;
 }
 
-.titleRevenueContainer {
- float: left;
- width: 316px;
+.amount {
+  color: #fff;
+  padding: 20px 15px 0px 15px;
+}
+
+.revenuesParent {
+  margin: 30px 30px;
+}
+.statsIcon {
+  font-size: 50px;
+  margin-top: 25px;
+  color: #ffffff;
+}
+.containerBgColor {
+  background-color: #20a8d8;
+}
+
+@media only screen and (min-width: 1024px) {
+  .revenuesContainer{
+    width: 24%;
+    margin: 0 0.5%;
+  }
+}
+
+@media only screen and (min-width: 768px) and (max-width: 1023px) {
+  .revenuesContainer{
+    width: 48%;
+    margin: 1%;
+  }
+}
+
+@media only screen and (max-width: 767px) {
+  .revenuesContainer{
+    width: 100%;
+    /*margin: 0 0.5%*/
+  }
 }
