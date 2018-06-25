@@ -1,0 +1,78 @@
+.dashBoardHeaderContainer {
+  background-color: #3a4148
+}
+
+
+.dashBoardHeader {
+  font-family: 'Rubik', sans-serif;
+  border-bottom: 1px solid black;
+  margin: 0px;
+}
+
+.headerTitle {
+  color: #6cddfc;
+  font-weight: 500;
+  font-size: 18px;
+  margin-left: 30px;
+  margin-right: 45px;
+}
+
+.leftHeader {
+  float: left;
+}
+.rightHeader {
+  float: right;
+}
+.menuIcon {
+  color: #bcc2c8;
+  font-size: 17px;
+}
+
+.commonLi {
+  color: #bcc2c8;
+  margin-right: 10px;
+}
+
+.list-container {
+  margin-top: 12px;
+}
+
+.avatar {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+}
+.marginRightHeader {
+  margin-top: 10px;
+}
+
+@media only screen and (max-width: 468px) {
+  .headerTitle {
+    margin-left: 3px;
+    margin-right: -2px;
+  }
+  .rightHeader {
+    margin-left: 0px;
+  }
+}
+
+@media only screen and (max-width: 767px) {
+  .rightHeader{
+    float: left;
+    margin-left: 25px;
+  }
+  .marginRightHeader {
+    margin-top: 0px;
+  }
+
+}
+@media only screen and (min-width: 768px) {
+  .title {
+    margin-right: 20px;
+  }
+}
+@media only screen and (max-width: 1024px) {
+  .headerTitle {
+     margin-right: 15px;
+  }
+}

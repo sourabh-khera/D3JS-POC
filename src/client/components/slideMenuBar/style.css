@@ -1,0 +1,40 @@
+.slidePanelProfileImage {
+  border-radius: 50%;
+  height: 40px;
+  width: 40px;
+  margin-right: 10px;
+}
+
+.userName {
+  color: #bcc2c8;
+}
+
+.textFieldStyle {
+  height: 30px;
+  background-color: #3a4148;
+}
+
+
+.searchIcon {
+  color: #bcc2c8;
+}
+
+.commonIcons {
+  color: #bcc2c8;
+  margin-right: 10px;
+  font-size: 12px;
+}
+.profileContainer {
+  padding: 10px;
+}
+
+.formPadding {
+  padding: 10px 10px 40px 10px;
+}
+.filterTypes {
+  background-color: #2f343b;
+}
+.applyButton {
+  margin: 65px;
+  width: 110px;
+}

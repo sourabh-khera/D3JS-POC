@@ -18,7 +18,7 @@ def checkForExistingKey():
 
 def createConnection():
      hostUrl = os.environ.get('HIVEHOSTURL');
-     conn = hive.Connection(host=hostUrl or '52.48.118.224', auth="CUSTOM", username='hive', password="pvXxHTsdqrt8", port=10000, database='tapro_atg');
+     conn = hive.Connection(host='1.0.1.38', auth="CUSTOM", username='hive', password="pvXxHTsdqrt8", port=10000, database='tapro_atg');
      return conn;
 
 def getDataframe():

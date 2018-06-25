@@ -4,6 +4,8 @@ import CountUp from 'react-countup';
 import PropTypes from 'prop-types';
 import isEqual from 'lodash/isEqual';
 import { RingLoader } from 'react-spinners';
+import Header from '../../components/dashboardHeader/header';
+import SlideMenuBar from '../../components/slideMenuBar/slideMenuBar';
 import DisplayRevenue from '../../components/displayRevenues/displayRevenue';
 import {
   getTotalRevenues,
@@ -38,9 +40,9 @@ class DashBoard extends Component {
       dateObj,
     } = this.props;
     fetchTotalRevenues(dateObj);
-    fetchServiceBasedRevenues(dateObj);
-    fetchChannelBasedRevenues(dateObj);
-    fetchCityBasedRevenues(dateObj);
+    // fetchServiceBasedRevenues(dateObj);
+    // fetchChannelBasedRevenues(dateObj);
+    // fetchCityBasedRevenues(dateObj);
   }
   componentWillReceiveProps(nextProps) {
     const {
@@ -63,8 +65,18 @@ class DashBoard extends Component {
   render() {
     const { totalRevenues, showLoader } = this.props;
     const keys = Object.keys(totalRevenues);
-    const renderDisplayRevenues = keys.map((item, id) => (
-      <DisplayRevenue
+    const renderDisplayRevenues = keys.map((item, id) => {
+      let bgColor;
+      if (item === 'Gross Revenue') {
+        bgColor = { 'background-color': '#20a8d8' };
+      } else if (item === 'Net Revenue') {
+        bgColor = { 'background-color': '#fdc10a' };
+      } else if (item === 'Average Gross Revenue') {
+        bgColor = { 'background-color': '#f86b6a' };
+      } else {
+        bgColor = { 'background-color': '#62c2de' };
+      }
+      return (<DisplayRevenue
         key={id}
         title={item}
         amount={<CountUp
@@ -77,8 +89,11 @@ class DashBoard extends Component {
           separator=","
           prefix={item === 'Total Transactions' ? '' : '$'}
         />}
-      />
-    ));
+        containerBgColor={bgColor}
+        graphIcon={item === 'Total Transactions' ? 'glyphicon-transfer' : 'glyphicon-stats'}
+      />);
+    });
+
     const renderComponent = showLoader ?
       (
         <div className="loaderContainer">
@@ -88,30 +103,19 @@ class DashBoard extends Component {
           />
         </div>
       )
-      : (
-        <div className="chartsContainer clearFix">
-          <Date />
-          <div className="displayRevenueContainer clearFix">
-            { renderDisplayRevenues }
-          </div>
-          <div className="items clearFix">
-            <HorizontalBarChart />
-            <DonutChart />
-            <PieChart />
-          </div>
-          <div className="items clearFix">
-            <VerticalBarChart />
-            <TreeMap />
-          </div>
-          <div className="items clearFix">
-            <GroupBarChart />
-            <LineChart />
-          </div>
-        </div>
-      );
+      : renderDisplayRevenues;
+
     return (
-      <div className="dashBoardContainer">
-        { renderComponent }
+      <div className="dasboardContainer">
+        <Header />
+        <div id="outer-container" style={{ height: '100%', overflow: 'hidden' }}>
+          <SlideMenuBar />
+          <main id="page-wrap" className="page" >
+            <div className="row">
+              {renderComponent}
+            </div>
+          </main>
+        </div>
       </div>
     );
   }
