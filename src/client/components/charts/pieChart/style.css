@@ -2,16 +2,12 @@
   font-family: 'Roboto Mono', monospace;
   color: #ffffff;
   font-size: 20px;
-  letter-spacing: -2.1px;
 }
 
 .pieContainer {
-  margin-left: 40px;
   padding-top: 40px;
-  float: left;
-  position: relative;
-  min-height: 320px;
-  width: 400px;
+  padding-left: 30px;
+  min-height: 400px;
 }
 .pieLoaderContainer{
   position: absolute;
@@ -22,4 +18,7 @@
   margin: auto;
   height: 60px;
   width: 60px;
+}
+.pieWrapper {
+  position: relative;
 }

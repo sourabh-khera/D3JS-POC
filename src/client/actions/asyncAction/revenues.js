@@ -11,6 +11,7 @@ import {
   enableDisableServiceTypeLoader,
   enableDisableChannelTypeLoader,
   enableDisableCityLoader,
+  setErrorMessage,
 } from '../common';
 
 export const getTotalRevenues = dateObj => async dispatch => {
@@ -27,7 +28,7 @@ export const getTotalRevenues = dateObj => async dispatch => {
     dispatch(enableDisableLoader(false));
     dispatch(saveSalesTotalRevenues(totalRevenues));
   } catch (error) {
-    console.log(error);
+    dispatch(setErrorMessage('Data not found'));
   }
 };
 
@@ -44,8 +45,9 @@ export const getServiceBasedRevenues = dateObj => async dispatch => {
     const data = JSON.parse(result[0]);
     dispatch(enableDisableServiceTypeLoader(false));
     dispatch(saveServiceBasedRevenues(data));
+    dispatch(setErrorMessage(false));
   } catch (error) {
-      console.log(error);
+    dispatch(setErrorMessage('Data not found'));
   }
 };
 
@@ -62,8 +64,9 @@ export const getChannelBasedRevenues = dateObj => async dispatch => {
     const data = JSON.parse(result[0]);
     dispatch(enableDisableChannelTypeLoader(false));
     dispatch(saveChannelBasedRevenues(data));
+    dispatch(setErrorMessage(false));
   } catch (error) {
-    console.log(error);
+    dispatch(setErrorMessage(true));
   }
 };
 
@@ -77,10 +80,11 @@ export const getCityBasedRevenues = dateObj => async dispatch => {
       headers: { 'Content-Type': 'application/json' },
     });
     const result = await response.json();
-    const data = JSON.parse(result[0])
+    const data = JSON.parse(result[0]);
     dispatch(enableDisableCityLoader(false));
     dispatch(saveCityBasedRevenues(data));
+    dispatch(setErrorMessage(false));
   } catch (error) {
-    console.log(error);
+    dispatch(setErrorMessage(true));
   }
 };

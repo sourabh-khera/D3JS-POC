@@ -13,7 +13,7 @@ class HorizontalBarChart extends Component {
       top: 20, right: 20, bottom: 30, left: 50,
     };
     this.width = 400 - this.margin.left - this.margin.right;
-    this.height = 300 - this.margin.top - this.margin.bottom;
+    this.height = 400 - this.margin.top - this.margin.bottom;
   }
   componentDidMount() {
     const { serviceTypeRevenues } = this.props;

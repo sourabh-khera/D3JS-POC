@@ -13,7 +13,7 @@ class GroupBarChart extends Component {
       top: 20, right: 20, bottom: 30, left: 40,
     };
     this.width = 420 - this.margin.left - this.margin.right;
-    this.height = 300 - this.margin.top - this.margin.bottom;
+    this.height = 400 - this.margin.top - this.margin.bottom;
   }
   componentDidMount() {
     const { Transactions } = this.props;

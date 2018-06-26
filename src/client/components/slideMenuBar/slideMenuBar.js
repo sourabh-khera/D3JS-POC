@@ -6,6 +6,7 @@ import avatar from '../../assets/images/avatar.jpg';
 import DisplayMenuItems from '../../components/menuItems/menuItems';
 import Date from '../selectdate/selectDate';
 import './style.css';
+import { saveDateObj } from '../../actions/revenues';
 
 const styles = {
   bmMenu: {
@@ -30,7 +31,6 @@ const styles = {
     display: 'none',
   },
 };
-
 class SlideMenuBar extends Component {
   constructor() {
     super();
@@ -39,10 +39,17 @@ class SlideMenuBar extends Component {
       showLeftIcon: true,
       openCalendar: false,
       toggleFilterTypes: false,
+      fromDate: '',
+      toDate: '',
     };
   }
-  handleStateChange = state => {
-  console.log(state.isOpen);
+
+  setValue = (type, value) => {
+    if (type === 'fromDate') {
+      this.setState({ fromDate: value });
+    } else {
+      this.setState({ toDate: value });
+    }
   }
   handleMenuClick = () => {
     const { toggle } = this.state;
@@ -52,10 +59,18 @@ class SlideMenuBar extends Component {
     const { openCalendar, toggleFilterTypes } = this.state;
     this.setState({ openCalendar: !openCalendar, toggleFilterTypes: !toggleFilterTypes });
   }
+
+  handleSubmit = () => {
+    const { getDateObject } = this.props;
+    const { fromDate, toDate } = this.state;
+    const dateObj = { fromDate, toDate };
+    getDateObject(dateObj);
+  }
   render() {
     const { menuOpen } = this.props;
-    const { toggle, showLeftIcon, openCalendar, toggleFilterTypes } = this.state;
-    const renderCalendar = openCalendar ? <Date /> : null;
+    const { toggle, showLeftIcon, openCalendar, toggleFilterTypes, fromDate, toDate } = this.state;
+    const renderCalendar = openCalendar ? <Date setValue={this.setValue} /> : null;
+    const disabled = fromDate && toDate !== '' ? null : 'disabled';
     const renderFilterTypes = toggle ?
       (
         <div className="filterTypes">
@@ -74,7 +89,7 @@ class SlideMenuBar extends Component {
       <div>
         <Menu
           isOpen={menuOpen}
-          onStateChange={state => this.handleStateChange(state)}
+      //    onStateChange={state => this.handleStateChange(state)}
           styles={styles}
           width={240}
           noOverlay
@@ -99,7 +114,7 @@ class SlideMenuBar extends Component {
           { renderFilterTypes }
           <DisplayMenuItems title="Reports" icon="glyphicon-list-alt" />
           <DisplayMenuItems title="Charts" icon="glyphicon-stats" />
-          <button type="button" className="btn btn-info btn-sm applyButton">Apply Filter</button>
+          <button type="button" className={`btn btn-info btn-sm ${disabled} applyButton`} onClick={this.handleSubmit}>Apply Filter</button>
         </Menu>
 
       </div>
@@ -108,8 +123,12 @@ class SlideMenuBar extends Component {
 }
 SlideMenuBar.propTypes = {
   menuOpen: PropTypes.bool.isRequired,
+  getDateObject: PropTypes.func.isRequired,
 };
 const mapStateToProps = state => ({
   menuOpen: state.dashBoard.menuOpen,
 });
-export default connect(mapStateToProps)(SlideMenuBar);
+const mapDispatchToProps = dispatch => ({
+  getDateObject: dateObj => dispatch(saveDateObj(dateObj)),
+});
+export default connect(mapStateToProps, mapDispatchToProps)(SlideMenuBar);

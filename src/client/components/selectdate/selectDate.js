@@ -1,10 +1,8 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import './style.css';
-import { saveDateObj } from '../../actions/revenues';
 
 class Date extends Component {
   constructor() {
@@ -17,17 +15,24 @@ class Date extends Component {
     this.toDate = '';
   }
   handleFromChange = date => {
-    this.setState({ startDate: date });
-    this.fromDate = date.format('YYYY-MM-DD');
+    this.setState({ startDate: date }, () => {
+      if (this.state.startDate !== null) {
+        this.fromDate = date.format('YYYY-MM-DD');
+        this.props.setValue('fromDate', this.fromDate);
+      } else {
+        this.props.setValue('fromDate', '');
+      }
+    });
   }
   handleToChange = date => {
-    this.setState({ endDate: date });
-    this.toDate = date.format('YYYY-MM-DD');
-  }
-  handleSubmit = () => {
-    const { getDateObject } = this.props;
-    const dateObj = { fromDate: this.fromDate, toDate: this.toDate };
-    getDateObject(dateObj);
+    this.setState({ endDate: date }, () => {
+      if (this.state.endDate !== null) {
+        this.toDate = date.format('YYYY-MM-DD');
+        this.props.setValue('toDate', this.toDate);
+      } else {
+        this.props.setValue('toDate', '');
+      }
+    });
   }
   render() {
     const { startDate, endDate } = this.state;
@@ -54,10 +59,8 @@ class Date extends Component {
   }
 }
 Date.propTypes = {
-  getDateObject: PropTypes.func.isRequired,
+  setValue: PropTypes.func.isRequired,
 };
-const mapDispatchToProps = dispatch => ({
-  getDateObject: dateObj => dispatch(saveDateObj(dateObj)),
-});
 
-export default connect(null, mapDispatchToProps)(Date);
+
+export default Date;

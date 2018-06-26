@@ -40,9 +40,9 @@ class DashBoard extends Component {
       dateObj,
     } = this.props;
     fetchTotalRevenues(dateObj);
-    // fetchServiceBasedRevenues(dateObj);
-    // fetchChannelBasedRevenues(dateObj);
-    // fetchCityBasedRevenues(dateObj);
+    fetchServiceBasedRevenues(dateObj);
+    fetchChannelBasedRevenues(dateObj);
+    fetchCityBasedRevenues(dateObj);
   }
   componentWillReceiveProps(nextProps) {
     const {
@@ -62,6 +62,7 @@ class DashBoard extends Component {
       this.setState({ dateObject: nextProps.dateObj });
     }
   }
+
   render() {
     const { totalRevenues, showLoader } = this.props;
     const keys = Object.keys(totalRevenues);
@@ -98,22 +99,50 @@ class DashBoard extends Component {
       (
         <div className="loaderContainer">
           <RingLoader
-            color="#123abc"
+            color="#ffffff"
             loading
           />
         </div>
       )
-      : renderDisplayRevenues;
+      : (
+        <div>
+          <div className="row">
+            {renderDisplayRevenues}
+          </div>
+          <div className="row">
+            <div className="col-sm-6 col-xs-12">
+              <HorizontalBarChart />
+            </div>
+            <div className="col-sm-6 col-xs-12 pieWrapper">
+              <PieChart />
+            </div>
+          </div>
+          <div className="row">
+            <div className="col-sm-6 col-xs-12">
+              <VerticalBarChart />
+            </div>
+            <div className="col-sm-6 col-xs-12">
+              <TreeMap />
+            </div>
+          </div>
+          <div className="row">
+            <div className="col-sm-6 col-xs-12">
+              <GroupBarChart />
+            </div>
+            <div className="col-sm-6 col-xs-12">
+              <LineChart />
+            </div>
+          </div>
+        </div>
+      );
 
     return (
       <div className="dasboardContainer">
         <Header />
         <div id="outer-container" style={{ height: '100%', overflow: 'hidden' }}>
-          <SlideMenuBar />
+          <SlideMenuBar handleButtonClick={this.handleButtonClick} />
           <main id="page-wrap" className="page" >
-            <div className="row">
-              {renderComponent}
-            </div>
+            {renderComponent}
           </main>
         </div>
       </div>
